@@ -126,7 +126,7 @@ export function Footer() {
           <iframe 
             src="https://www.google.com/maps?q=Kemplast+Process+Solutions&output=embed"
             width="100%" 
-            height="400" 
+            height="220" 
             style={{ border: 0 }} 
             allowFullScreen={false} 
             loading="lazy"
