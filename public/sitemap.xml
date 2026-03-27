@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Core Pages -->
   <url>
-    <loc>https://www.kemplast.in/</loc>
+    <loc>https://kemplast.in/</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.kemplast.in/products</loc>
+    <loc>https://kemplast.in/products</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.kemplast.in/services</loc>
+    <loc>https://kemplast.in/services</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.kemplast.in/contact</loc>
+    <loc>https://kemplast.in/contact</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.kemplast.in/team</loc>
+    <loc>https://kemplast.in/team</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.kemplast.in/gallery</loc>
+    <loc>https://kemplast.in/gallery</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -40,59 +40,33 @@
 
   <!-- SEO Brand Landing Pages -->
   <url>
-    <loc>https://www.kemplast.in/siemens-industrial-products-india</loc>
+    <loc>https://kemplast.in/siemens-industrial-products-india</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.kemplast.in/ventil-equipment-india</loc>
+    <loc>https://kemplast.in/ventil-equipment-india</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.kemplast.in/spitmaan-solutions-india</loc>
+    <loc>https://kemplast.in/spitmaan-solutions-india</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.kemplast.in/rks-industrial-solutions</loc>
+    <loc>https://kemplast.in/rks-industrial-solutions</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.kemplast.in/scientific-devices-india</loc>
+    <loc>https://kemplast.in/scientific-devices-india</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-  </url>
-
-  <!-- Blog -->
-  <url>
-    <loc>https://www.kemplast.in/blog</loc>
-    <lastmod>2026-03-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.kemplast.in/blog/top-siemens-industrial-products-india</loc>
-    <lastmod>2026-03-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.kemplast.in/blog/best-ventil-equipment-suppliers-india</loc>
-    <lastmod>2026-03-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.kemplast.in/blog/why-scientific-devices-matter-in-industry</loc>
-    <lastmod>2026-03-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
 </urlset>

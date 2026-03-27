@@ -5,11 +5,11 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 
 const partners = [
-  { name: "SIEMENS", src: "/images/Siemens logo.png" },
-  { name: "Scientific Devices", src: "/images/Scientific Devices Logo.png" },
-  { name: "Ventil", src: "/images/Ventil Logo.svg" },
-  { name: "Spitmaan", src: "/images/spitmaan logo.png" },
-  { name: "RKS", src: "/images/RKS logo.png" },
+  { name: "SIEMENS", src: "/images/siemens-logo.png" },
+  { name: "Scientific Devices", src: "/images/scientific-devices-logo.png" },
+  { name: "Ventil", src: "/images/ventil-logo.svg" },
+  { name: "Spitmaan", src: "/images/spitmaan-logo.png" },
+  { name: "RKS", src: "/images/rks-logo.png" },
 ]
 
 export function PartnersSection() {

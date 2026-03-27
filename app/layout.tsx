@@ -12,7 +12,7 @@ const _inter = Inter({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.kemplast.in"),
+  metadataBase: new URL("https://kemplast.in"),
   title: {
     default: "Kemplast Process Solutions | Industrial Instrumentation & Equipment Supplier India",
     template: "%s | Kemplast Process Solutions",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://www.kemplast.in",
+    url: "https://kemplast.in",
     siteName: "Kemplast Process Solutions",
     title: "Kemplast Process Solutions | Industrial Equipment Supplier India",
     description:
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
       "Authorized supplier of Siemens, Ventil, Spitmaan, RKS & Scientific Devices industrial products in India.",
     images: ["/images/kemplast-logo-updated.png"],
   },
-  alternates: { canonical: "https://www.kemplast.in" },
+  alternates: { canonical: "https://kemplast.in" },
   icons: {
     icon: "/kemplast-favicon.png",
     shortcut: "/kemplast-favicon.png",
@@ -69,8 +69,8 @@ const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Kemplast Process Solutions",
-  url: "https://www.kemplast.in",
-  logo: "https://www.kemplast.in/images/kemplast-logo-updated.png",
+  url: "https://kemplast.in",
+  logo: "https://kemplast.in/images/kemplast-logo-updated.png",
   foundingDate: "1986",
   description:
     "Authorized supplier of Siemens, Ventil, Spitmaan, RKS & Scientific Devices industrial products in India. Specializing in process instrumentation, packing, insulation, and valve products.",
