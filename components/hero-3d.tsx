@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { motion, animate } from "framer-motion"
+import { motion, animate, useScroll, useTransform } from "framer-motion"
 import { ArrowRight, BookOpen, ChevronDown, Award, Users, Building2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { MagneticButton } from "@/components/ui/magnetic-button"
@@ -41,11 +41,16 @@ import { ComingSoonModal } from "@/components/coming-soon-modal"
 
 export function Hero3D() {
   const [modalOpen, setModalOpen] = useState(false)
+  const { scrollY } = useScroll()
+  const y1 = useTransform(scrollY, [0, 1000], [0, 200])
+  const y2 = useTransform(scrollY, [0, 1000], [0, -100])
+  const opacity = useTransform(scrollY, [0, 300], [1, 0])
+
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-background selection:bg-primary/30">
 
       {/* Modern Grid Overlay */}
-      <div className="absolute inset-0 z-[1] bg-[linear-gradient(color-mix(in_oklch,var(--foreground),transparent_97%)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_oklch,var(--foreground),transparent_97%)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_100%)] pointer-events-none" />
+      <motion.div style={{ y: y1 }} className="absolute inset-0 z-[1] bg-[linear-gradient(color-mix(in_oklch,var(--foreground),transparent_97%)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_oklch,var(--foreground),transparent_97%)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_100%)] pointer-events-none" />
 
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-transparent to-background/90 z-[1]" />
@@ -56,7 +61,7 @@ export function Hero3D() {
         <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
 
           {/* Left Content */}
-          <div className="text-left space-y-8">
+          <motion.div style={{ y: y2, opacity }} className="text-left space-y-8">
 
 
 
@@ -67,7 +72,7 @@ export function Hero3D() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-6xl sm:text-7xl lg:text-8xl font-bold tracking-tighter text-foreground leading-[0.9]"
+                className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tighter text-foreground leading-[0.9]"
               >
                 KEMPLAST
                 <br />
@@ -145,7 +150,7 @@ export function Hero3D() {
                 IndiaMART
               </a>
             </motion.div>
-          </div>
+          </motion.div>
 
           {/* Right Stats (Floating) */}
           <div className="relative hidden lg:block h-[600px]">

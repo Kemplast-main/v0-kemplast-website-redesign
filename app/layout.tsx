@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
 
 import { GlobalBackground } from "@/components/global-background"
+import { ScrollProgress } from "@/components/scroll-progress"
 import { Toaster } from "sonner"
 import "./globals.css"
 
@@ -105,7 +106,7 @@ export default function RootLayout({
     <html lang="en" className="light" suppressHydrationWarning>
       <body className="font-sans antialiased">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
-
+          <ScrollProgress />
           <GlobalBackground />
           {children}
           <Toaster />

@@ -2442,20 +2442,34 @@ function ProductsContent() {
           </div>
 
           {/* MAIN CATEGORIES */}
-          <div className="flex flex-wrap justify-center gap-3 mb-8 px-4 sm:px-0">
+          <motion.div 
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.05 } }
+            }}
+            className="flex flex-wrap justify-center gap-3 mb-8 px-4 sm:px-0"
+          >
             {categories.map((category) => (
-              <button
+              <motion.button
+                variants={{
+                  hidden: { opacity: 0, scale: 0.8 },
+                  visible: { opacity: 1, scale: 1, transition: { type: "spring", bounce: 0.4 } }
+                }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 key={category.id}
                 onClick={() => handleCategoryChange(category.id)}
-                className={`px-4 py-2 rounded-full font-medium whitespace-nowrap transition-all flex-shrink-0 ${activeCategory === category.id
+                className={`px-4 py-2 rounded-full font-medium whitespace-nowrap transition-colors flex-shrink-0 shadow-sm ${activeCategory === category.id
                   ? "bg-primary text-primary-foreground"
                   : "bg-card border border-border text-muted-foreground hover:border-primary hover:text-primary"
                   }`}
               >
                 {category.name}
-              </button>
+              </motion.button>
             ))}
-          </div>
+          </motion.div>
 
           {/* SUB CATEGORIES (FOR CATEGORIES WITH SUB ITEMS) */}
           {(activeCategory === "pressure" ||
@@ -2467,20 +2481,34 @@ function ProductsContent() {
             activeCategory === "packing" ||
             activeCategory === "plc") &&
             subCategoriesMap[activeCategory] && (
-              <div className="flex flex-wrap justify-center gap-3 mb-12 px-4">
+              <motion.div 
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: {},
+                  visible: { transition: { staggerChildren: 0.05 } }
+                }}
+                className="flex flex-wrap justify-center gap-3 mb-12 px-4"
+              >
                 {subCategoriesMap[activeCategory].map((sub) => (
-                  <button
+                  <motion.button
                     key={sub.id}
+                    variants={{
+                      hidden: { opacity: 0, y: 10 },
+                      visible: { opacity: 1, y: 0, transition: { type: "tween" } }
+                    }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => setActiveSubCategory(sub.id)}
-                    className={`px-5 py-2 rounded-full text-sm transition-all ${activeSubCategory === sub.id
+                    className={`px-5 py-2 rounded-full text-sm transition-colors shadow-sm ${activeSubCategory === sub.id
                       ? "bg-primary text-primary-foreground"
                       : "bg-card border border-border text-muted-foreground hover:border-primary hover:text-primary"
                       }`}
                   >
                     {sub.name}
-                  </button>
+                  </motion.button>
                 ))}
-              </div>
+              </motion.div>
             )}
 
 

@@ -96,20 +96,31 @@ export function ProductExplorer() {
                     </motion.div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <motion.div 
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-100px" }}
+                    variants={{
+                        hidden: {},
+                        visible: {
+                            transition: {
+                                staggerChildren: 0.15,
+                            }
+                        }
+                    }}
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+                >
                     {products.map((product, index) => (
-                        <div
+                        <motion.div
                             key={product.id}
+                            variants={{
+                                hidden: { opacity: 0, y: 40, scale: 0.95 },
+                                visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", bounce: 0.4, duration: 0.8 } }
+                            }}
                             className={`group relative ${product.colSpan} h-[280px] lg:h-[320px] rounded-3xl overflow-hidden cursor-pointer`}
                         >
                             <Link href={product.link} className="block w-full h-full">
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: index * 0.1 }}
-                                    className="w-full h-full relative"
-                                >
+                                <div className="w-full h-full relative">
                                     {/* Background Image */}
                                     <Image
                                         src={product.image}
@@ -119,29 +130,29 @@ export function ProductExplorer() {
                                     />
 
                                     {/* Gradient Overlay */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent transition-opacity duration-300 group-hover:opacity-90" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-300 group-hover:opacity-90" />
 
                                     {/* Content */}
                                     <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                                        <div className="transform transition-transform duration-300 group-hover:translate-y-[-8px]">
+                                        <div className="transform transition-transform duration-500 group-hover:-translate-y-2">
                                             <div className="flex items-center justify-between mb-2">
-                                                <h3 className="text-2xl font-bold text-white group-hover:text-primary transition-colors">
+                                                <h3 className="text-2xl font-bold text-white shadow-black/50 drop-shadow-md group-hover:text-primary transition-colors">
                                                     {product.title}
                                                 </h3>
                                                 <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0">
                                                     <ArrowUpRight className="w-5 h-5 text-white" />
                                                 </div>
                                             </div>
-                                            <p className="text-white/70 text-sm line-clamp-2 group-hover:text-white/90 transition-colors">
+                                            <p className="text-white/80 text-sm line-clamp-2 shadow-black/50 drop-shadow-md group-hover:text-white transition-colors">
                                                 {product.description}
                                             </p>
                                         </div>
                                     </div>
-                                </motion.div>
+                                </div>
                             </Link>
-                        </div>
+                        </motion.div>
                     ))}
-                </div>
+                </motion.div>
             </div>
         </section>
     )
