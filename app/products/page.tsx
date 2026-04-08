@@ -20,6 +20,7 @@ const categories = [
   { id: "valve", name: "Valve Positioners" },
   { id: "insulation", name: "Insulation Products" },
   { id: "packing", name: "Packing Products" },
+  { id: "plc", name: "Siemens PLC Components" },
 ];
 
 /* ------------------ SUB CATEGORIES ------------------ */
@@ -45,13 +46,22 @@ const subCategoriesMap: Record<string, { id: string; name: string }[]> = {
     { id: "ceramic", name: "Ceramic Packing" },
     { id: "ptfe", name: "PTFE Components" },
   ],
+
+  plc: [
+    { id: "all", name: "All PLC Components" },
+    { id: "basic", name: "Basic Controllers" },
+    { id: "advanced", name: "Advanced Controllers" },
+    { id: "distributed", name: "Distributed Systems" },
+    { id: "hmi", name: "HMI Systems" },
+    { id: "power", name: "Power Supplies" },
+  ],
 };
 
 /* ------------------ PRODUCT DETAILS TYPE ------------------ */
 interface ProductDetail {
   name: string;
   category: string;
-  subCategory: string;
+  subCategory?: string;
   image: string;
   description?: string;
   introduction?: string;
@@ -2080,6 +2090,95 @@ const productDetailsMap: Record<string, ProductDetail> = {
       "Sizes": "12–250 mm; larger ones on request",
     },
   },
+
+  // PLC Products
+  "Logo Plc System": {
+    name: "Logo Plc System",
+    category: "plc",
+    subCategory: "basic",
+    image: "/images/plc-images/logo-plc.jpeg",
+    introduction: "LOGO serves as a micro PLC with an inbuilt window for indications and inbuilt keys for programming without requirement of PC/Laptop. It can handle maximum of 40 I/Os and certain restrictions apply in programming which has to be kept in mind during selection. Ideal PLC for Small applications.",
+    technicalSpecs: {
+      "Available Models": "LOGO 24 RCE, LOGO 12/24 RCE, 4 DI/ 4 DO modules, 8 DI/ 8 DO modules, 2 AI modules, 2 AI RTD modules, Communication modules",
+    },
+  },
+  "S7-200 SMART SYSTEM": {
+    name: "S7-200 SMART SYSTEM",
+    category: "plc",
+    subCategory: "basic",
+    image: "/images/plc-images/s7-200.jpeg",
+    introduction: "The S7-200 smart system supports 242 I/O and a maximum expansion modules supported are 8 including CPU. The CPUs available in S7-200 system are inbuilt with certain number of I/Os. Many CPUs are available such as ST20, ST30, ST40 and ST60. Excellent choice for small and medium applications. Various special communication modules are available Ethernet etc... S7-200 CN systems are economical range of PLC modules with CE certification.",
+    technicalSpecs: {
+      "Available Models": "ST-20, ST-30, ST-40, ST-60, SR-20, SR-30, SR-40, SR-60, CR-40, CR-60",
+    },
+  },
+  "S7-1200 SYSTEM": {
+    name: "S7-1200 SYSTEM",
+    category: "plc",
+    subCategory: "basic",
+    image: "/images/plc-images/s7-1200.jpeg",
+    introduction: "The Siemens S7-1200 PLC system supports a maximum of 242 I/Os and a delightful choice for small and medium range of applications. This family of PLCs have got inbuilt profinet port and can be connected to any Ethernet/Profinet systems. Programming and monitoring can be done in the PLC from Desktop / Laptop with simple Ethernet cable with RJ45 connector without need of special communication adaptors. Capability range of this PLC system is inbetween S7 -200 and S7-300 PLC systems. Maximum of 8 modules can be connected including CPU. The CPUs are with on board I/Os. New HMI series of KTP (KTP 400 onwards) are launched with Profinet ports to enable direct connectivity to S7- 1200 CPUs.",
+    technicalSpecs: {
+      "Available Models": "CPU 1211 C, CPU 1212 C, CPU 1214 C, 1215 C, 1217 C, CPU 1212 FC, 1214 FC, 1215 FC",
+      "Modules": "4 DI/ 8 DI/16 DI input modules, 8 DO/ 16 DO relay modules, 1 AI/4 AI/ 8AI analog modules, 1 AO/2 AO/4AO analog modules",
+    },
+  },
+  "S7-300 SYSTEM": {
+    name: "S7-300 SYSTEM",
+    category: "plc",
+    subCategory: "advanced",
+    image: "/images/plc-images/s7-300.jpeg",
+    introduction: "The S7-300 system supports up to 1024 I/Os with centralized or Distributed configurations. Excellent speed and good choice for medium and large applications. Wide range of CPU availability with respect to applications. CPUs with inbuilt communication capabilities to Profibus, Profinet are available. Failsafe modules and Redundancy support is possible. Fail safe PLCs are intended for critical application where safety is critical.",
+  },
+  "S7-400 SYSTEM": {
+    name: "S7-400 SYSTEM",
+    category: "plc",
+    subCategory: "advanced",
+    image: "/images/plc-images/s7-400.jpeg",
+    introduction: "The S7-400 system supports higher than 1024 I/Os and an ultimate choice for large process plants such as Power plants, Cement plants etc. Various redundant configurations are possible making it an excellent choice for critical applications. CPUs with integrated Profibus and Profinet are available. Wide range of CPUs available to choose depends on the process requirements.",
+  },
+  "S7-1500 SYSTEM": {
+    name: "S7-1500 SYSTEM",
+    category: "plc",
+    subCategory: "advanced",
+    image: "/images/plc-images/s7-1500.jpeg",
+    introduction: "The S7-1500 SYSTEM is an advanced programmable logic controller offering maximum performance and usability for medium to high-end machine applications.",
+    technicalSpecs: {
+      "Available Models": "CPU 1511 C, 1512 C, CPU 1511-1, 1513-1, 1515-2 PN, CPU 1516-3 PN / DP, 1517- 3 PN/DP, 1518-4 PN/DP",
+      "Modules": "16 / 32 channel DI modules, AC/ DC DI modules, 8/16/32 Channel DI module, AC/DC DO modules, 4 / 8 channel DO moduless, Thermocouple and RTD modules",
+    },
+  },
+  "ET 200 M Systems": {
+    name: "ET 200 M Systems",
+    category: "plc",
+    subCategory: "distributed",
+    image: "/images/plc-images/et-200-m.jpeg",
+    introduction: "This is a medium range distributed PLC system with all facilities as mentioned in ET 200 S system medium group of I/Os located in groups in a plant distributed over a large area. The expansion modules used in Centralised S7 300 System can be used in this system.",
+  },
+  "ET 200 S Systems": {
+    name: "ET 200 S Systems",
+    category: "plc",
+    subCategory: "distributed",
+    image: "/images/plc-images/et-200-s.jpeg",
+    introduction: "A compact PLC used in Distributed Profibus / Profinet systems where small group of I/Os are located in groups in a plant distributed over a large area. The modules as small as 4 digital inputs and 4 digital outputs or 2 analog inputs are available as individual modules at an economical pricing and the ET 200S modules can be supported with an interface module and connects by Profibus cable or Profinet cable. This enables localized PLC systems near to field equipments enables easy monitoring and a boon to maintenance engineer. It reduces cabling between each input/output to field equipments and a simple Profibus/Profinet cable connects the system to Main PLC.",
+  },
+  "HMI Systems": {
+    name: "HMI - HUMAN MACHINE INTERFACE SYSTEMS",
+    category: "plc",
+    subCategory: "hmi",
+    image: "/images/plc-images/hmi.jpeg",
+    introduction: "Human Machine Interface Systems from Siemens for easy monitoring and operation of processes.",
+    technicalSpecs: {
+      "Available Panels": "BASIC AND KEY PANELS, COMFORT PANELS AND PC-BASED HMI, MOBILE PANEL, COMFORT PANELS, BASIC HMI, SIMATIC HMI, KEY PANELS SIMATIC, HMI BASIC PANEL, ADVANCED HMI PANEL-BASED",
+    },
+  },
+  "Power Supply": {
+    name: "Power Supply",
+    category: "plc",
+    subCategory: "power",
+    image: "/images/plc-images/power-supply.jpeg",
+    introduction: "Various power supplies are available from Siemens ranging from 2 amps to 20 amps with single phase 110/220 V input supply and from 5 amps to 40 amps with 3 phase 415 V input supply. 24v DC outputs are provided with short circuit protection. Elegantly and ruggedly designed independent and rack mounted PLC power supplies are also available. 30 V DC supplies are specially designed for ASI systems.",
+  },
 };
 
 /* ------------------ PRODUCTS ------------------ */
@@ -2184,6 +2283,18 @@ const products: ProductDetail[] = [
   productDetailsMap["Teflon Belows"],
   productDetailsMap["Teflon Universal Rope"],
   productDetailsMap["Teflon Diaphragms with Neoprene Rubber Pad"],
+
+  // PLC
+  productDetailsMap["Logo Plc System"],
+  productDetailsMap["S7-200 SMART SYSTEM"],
+  productDetailsMap["S7-1200 SYSTEM"],
+  productDetailsMap["S7-300 SYSTEM"],
+  productDetailsMap["S7-400 SYSTEM"],
+  productDetailsMap["S7-1500 SYSTEM"],
+  productDetailsMap["ET 200 M Systems"],
+  productDetailsMap["ET 200 S Systems"],
+  productDetailsMap["HMI Systems"],
+  productDetailsMap["Power Supply"],
 ];
 
 function ProductsContent() {
@@ -2353,7 +2464,8 @@ function ProductsContent() {
             activeCategory === "temperature" ||
             activeCategory === "safety" ||
             activeCategory === "valve" ||
-            activeCategory === "packing") &&
+            activeCategory === "packing" ||
+            activeCategory === "plc") &&
             subCategoriesMap[activeCategory] && (
               <div className="flex flex-wrap justify-center gap-3 mb-12 px-4">
                 {subCategoriesMap[activeCategory].map((sub) => (
