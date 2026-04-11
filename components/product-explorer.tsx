@@ -55,6 +55,14 @@ const products = [
         link: "/products?category=safety",
         colSpan: "lg:col-span-2",
     },
+    {
+        id: 7,
+        title: "Siemens PLC Systems",
+        description: "LOGO, S7-200, S7-1200, S7-300, S7-400, S7-1500 & distributed ET 200 systems for industrial automation.",
+        image: "/images/plc-images/s7-1200.jpeg",
+        link: "/products?category=plc",
+        colSpan: "lg:col-span-4",
+    },
 ]
 
 export function ProductExplorer() {
