@@ -13,6 +13,8 @@ import { ChevronRight } from "lucide-react";
 const categories = [
   { id: "all", name: "All Products" },
   { id: "pressure", name: "Pressure Instruments" },
+  { id: "gauge", name: "Gauges" },
+  { id: "temp-gauge", name: "Temperature Gauges" },
   { id: "level", name: "Level Instruments" },
   { id: "flow", name: "Flow Instruments" },
   { id: "temperature", name: "Temperature Instruments" },
@@ -27,8 +29,19 @@ const categories = [
 const subCategoriesMap: Record<string, { id: string; name: string }[]> = {
   pressure: [
     { id: "all", name: "All Pressure Instruments" },
-    { id: "gauge", name: "Pressure Gauge" },
     { id: "transmitter", name: "Pressure Transmitters" },
+  ],
+
+  gauge: [
+    { id: "all", name: "All Gauges" },
+    { id: "pressure-gauge", name: "Pressure Gauges" },
+    { id: "differential", name: "Differential Gauges" },
+  ],
+
+  "temp-gauge": [
+    { id: "all", name: "All Temperature Gauges" },
+    { id: "bimetallic", name: "Bimetallic Thermometers" },
+    { id: "glass", name: "Glass Thermometers" },
   ],
 
   level: [
@@ -216,16 +229,16 @@ const productDetailsMap: Record<string, ProductDetail> = {
   },
   "Pressure Gauge": {
     name: "Pressure Gauge",
-    category: "pressure",
-    subCategory: "gauge",
+    category: "gauge",
+    subCategory: "pressure-gauge",
     image: "/industrial-pressure-gauge.jpg",
     introduction:
       "Pressure gauges are used to measure pressures in hydraulic systems and it is made in accordance to EN 837-1 European standards. Measuring pressure on equipment is essential for monitoring and providing the smooth functioning and operating safety of the plant. Pressure gauges are a group of devices that measure and display fluid pressure levels enclosed vessels or systems in the process. Pressure is measurement of the amount of force applied over a specific unit area.",
   },
   "Differential Pressure Gauge": {
     name: "Differential Pressure Gauge",
-    category: "pressure",
-    subCategory: "gauge",
+    category: "gauge",
+    subCategory: "differential",
     image: "/differential-gauge.jpg",
     introduction:
       "A Differential Pressure Gauge is used to measure the difference in pressure between two points. It is commonly used in applications where monitoring this difference is critical to ensure proper operation, such as in filters, pumps, and flow systems.",
@@ -247,6 +260,77 @@ const productDetailsMap: Record<string, ProductDetail> = {
       "Breweries",
       "Food & Beverages",
       "Cement Industries",
+    ],
+  },
+
+  /* ------------------ TEMPERATURE GAUGE PRODUCTS ------------------ */
+  "Bimetallic Thermometer": {
+    name: "Bimetallic Thermometer",
+    category: "temp-gauge",
+    subCategory: "bimetallic",
+    image: "/images/temp-images/resistance-temperature-detectors.png",
+    introduction:
+      "A Bimetallic Thermometer is a robust, direct-reading temperature measurement instrument that uses the differential thermal expansion of two bonded metal strips to indicate temperature. Widely used in industrial processes, HVAC, and OEM equipment, they offer accurate, reliable, and maintenance-free temperature indication without requiring any external power supply.",
+    technicalSpecs: {
+      "Temperature Range": "-70 °C to +600 °C",
+      "Stem Diameter": "6 mm / 8 mm / 10 mm",
+      "Dial Size": "63 mm / 80 mm / 100 mm / 150 mm",
+      "Stem Length": "63 mm to 500 mm (custom lengths available)",
+      "Process Connection": "NPT / BSP threaded",
+      "Case Material": "SS304 / SS316 / Aluminum",
+      Accuracy: "± 1 % of full scale",
+      "Degree of Protection": "IP55 / IP67",
+    },
+    benefits: [
+      "No external power supply required",
+      "Highly robust and vibration resistant",
+      "Suitable for aggressive and high-pressure media",
+      "Wide temperature range coverage",
+      "Easy to read analogue dial",
+      "Adjustable angle stem for flexible mounting",
+    ],
+    applications: [
+      "Oil & Gas pipelines",
+      "Chemical & Petrochemical plants",
+      "HVAC systems",
+      "Food & Beverage processing",
+      "Boilers and heat exchangers",
+      "Pharmaceutical industry",
+      "Water treatment plants",
+    ],
+  },
+
+  "Glass Thermometer": {
+    name: "Glass Thermometer",
+    category: "temp-gauge",
+    subCategory: "glass",
+    image: "/images/temp-images/thermocouples.jpg",
+    introduction:
+      "Industrial Glass Thermometers provide a simple, economical, and reliable method of direct temperature measurement. Manufactured with high-quality borosilicate glass and precision-calibrated scales, they are ideal for laboratory, pharmaceutical, food processing, and general industrial applications where electrical instrumentation is not required.",
+    technicalSpecs: {
+      "Temperature Range": "-10 °C to +300 °C (various ranges available)",
+      "Immersion Length": "Total, partial, or surface immersion",
+      "Glass Material": "Borosilicate glass",
+      "Fill Fluid": "Mercury or organic liquid (mercury-free options available)",
+      "Graduation": "0.5 °C / 1 °C / 2 °C",
+      Accuracy: "± 1 graduation interval per ASTM E1",
+      "Standard Compliance": "ASTM / DIN / IS standards",
+    },
+    benefits: [
+      "No power supply required",
+      "Simple and reliable direct-reading instrument",
+      "High chemical and thermal resistance (borosilicate glass)",
+      "Available in mercury-free versions for environmental compliance",
+      "Wide range of temperature scales and immersion types",
+      "Cost-effective solution for non-electrical environments",
+    ],
+    applications: [
+      "Laboratory and R&D",
+      "Pharmaceutical manufacturing",
+      "Food and beverage quality control",
+      "Water treatment",
+      "HVAC and refrigeration",
+      "Chemical processing",
     ],
   },
 
@@ -2120,13 +2204,19 @@ const productDetailsMap: Record<string, ProductDetail> = {
 
 /* ------------------ PRODUCTS ------------------ */
 const products: ProductDetail[] = [
-  // Pressure
-  productDetailsMap["Pressure Gauge"],
-  productDetailsMap["Differential Pressure Gauge"],
+  // Pressure Transmitters
   productDetailsMap["Pencil Type Pressure Transmitter"],
   productDetailsMap["Gauge Pressure Transmitter"],
   productDetailsMap["Absolute Pressure Transmitter"],
   productDetailsMap["Differential Pressure Transmitter"],
+
+  // Gauges (Pressure)
+  productDetailsMap["Pressure Gauge"],
+  productDetailsMap["Differential Pressure Gauge"],
+
+  // Temperature Gauges
+  productDetailsMap["Bimetallic Thermometer"],
+  productDetailsMap["Glass Thermometer"],
 
   // Level - Ultrasonic
   productDetailsMap["ECHOMAX XPS-10, XPS-15 & XPS-30"],
@@ -2408,6 +2498,8 @@ function ProductsContent() {
 
           {/* SUB CATEGORIES (FOR CATEGORIES WITH SUB ITEMS) */}
           {(activeCategory === "pressure" ||
+            activeCategory === "gauge" ||
+            activeCategory === "temp-gauge" ||
             activeCategory === "level" ||
             activeCategory === "flow" ||
             activeCategory === "temperature" ||
@@ -2435,9 +2527,9 @@ function ProductsContent() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setActiveSubCategory(sub.id)}
-                    className={`px-5 py-2 rounded-full text-sm transition-colors shadow-sm ${activeSubCategory === sub.id
+                    className={`px-5 py-2 rounded-full text-sm font-medium transition-colors shadow-sm ${activeSubCategory === sub.id
                       ? "bg-primary text-primary-foreground"
-                      : "bg-card border border-border text-muted-foreground hover:border-primary hover:text-primary"
+                      : "bg-background border border-primary text-primary hover:bg-primary/10"
                       }`}
                   >
                     {sub.name}

@@ -26,7 +26,7 @@ export function PartnersSection() {
           <span className="inline-flex items-center justify-center px-6 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xl font-bold tracking-widest uppercase shadow-[0_0_15px_-5px_hsl(var(--primary))] backdrop-blur-sm mb-4">
             Partners
           </span>
-          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mt-4">Our Channel Partners</h2>
+          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mt-4">Our Partners</h2>
         </motion.div>
 
         {/* Scrolling logos */}
