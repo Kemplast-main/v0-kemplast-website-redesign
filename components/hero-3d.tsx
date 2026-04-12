@@ -193,21 +193,32 @@ export function Hero3D() {
               variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.15, delayChildren: 0.6 } } }}
               className="hidden lg:flex flex-col gap-4 w-[220px]"
             >
-              {stats.map((s) => (
+              {stats.map((s, idx) => (
                 <motion.div
                   key={s.label}
                   variants={{ hidden: { opacity: 0, x: 40 }, visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22,1,0.36,1] as [number, number, number, number] } } }}
-                  whileHover={{ scale: 1.04, x: -4 }}
-                  className="group relative px-6 py-5 rounded-2xl bg-card/70 backdrop-blur-md border border-border hover:border-primary/40 shadow-xl hover:shadow-primary/10 transition-all duration-300 overflow-hidden"
+                  className="w-full"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="relative flex flex-col gap-1">
-                    <s.icon className="w-5 h-5 text-primary mb-1" />
-                    <div className="text-3xl font-black text-foreground tracking-tight">
-                      <Counter value={s.value} suffix={s.suffix} />
+                  <motion.div
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{
+                      duration: 4.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 0.8 + idx * 0.4,
+                    }}
+                    whileHover={{ scale: 1.04, x: -4 }}
+                    className="group relative px-6 py-5 rounded-2xl bg-card/70 backdrop-blur-md border border-border hover:border-primary/40 shadow-xl hover:shadow-primary/10 transition-all duration-300 overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="relative flex flex-col gap-1">
+                      <s.icon className="w-5 h-5 text-primary mb-1" />
+                      <div className="text-3xl font-black text-foreground tracking-tight">
+                        <Counter value={s.value} suffix={s.suffix} />
+                      </div>
+                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">{s.label}</div>
                     </div>
-                    <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">{s.label}</div>
-                  </div>
+                  </motion.div>
                 </motion.div>
               ))}
             </motion.div>
