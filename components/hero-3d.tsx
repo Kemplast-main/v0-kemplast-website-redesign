@@ -117,12 +117,12 @@ export function Hero3D() {
                   KEMPLAST
                 </h1>
                 <h1 className="text-[clamp(3rem,8vw,7rem)] font-black tracking-tighter leading-[0.88]">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-400 to-amber-500 bg-[length:200%] animate-gradient">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-400 to-amber-500 bg-[length:200%] animate-gradient inline-block pr-2 pb-2">
                     PROCESS
                   </span>
                 </h1>
                 <h1 className="text-[clamp(3rem,8vw,7rem)] font-black tracking-tighter leading-[0.88]">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-400 to-primary bg-[length:200%] animate-gradient [animation-delay:0.5s]">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-400 to-primary bg-[length:200%] animate-gradient [animation-delay:0.5s] inline-block pr-2 pb-2">
                     SOLUTIONS
                   </span>
                 </h1>
