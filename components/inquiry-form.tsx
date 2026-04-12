@@ -13,15 +13,36 @@ export function InquiryForm({ defaultSubject = "Product Inquiry" }: { defaultSub
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    toast.success("Inquiry sent successfully!", {
-      description: "Our team will get back to you shortly."
-    })
-    setIsSubmitting(false)
-    ;(e.target as HTMLFormElement).reset()
+
+    const form = e.target as HTMLFormElement
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
+      company: (form.elements.namedItem("company") as HTMLInputElement).value,
+      subject: (form.elements.namedItem("subject") as HTMLInputElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+      product: [],
+    }
+
+    try {
+      const res = await fetch("/api/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+
+      if (!res.ok) throw new Error("Failed to send")
+
+      toast.success("Inquiry sent successfully!", {
+        description: "Our team will get back to you shortly.",
+      })
+      form.reset()
+    } catch {
+      toast.error("Failed to send inquiry. Please try again or email us at sales@kemplast.in")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
