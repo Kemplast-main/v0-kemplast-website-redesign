@@ -1,204 +1,248 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import Image from "next/image"
+import { useEffect, useState, useRef } from "react"
 import Link from "next/link"
-import { motion, animate, useScroll, useTransform } from "framer-motion"
-import { ArrowRight, BookOpen, ChevronDown, Award, Users, Building2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { MagneticButton } from "@/components/ui/magnetic-button"
+import { motion, animate, useScroll, useTransform, useInView } from "framer-motion"
+import { ArrowRight, BookOpen, ArrowUpRight, Zap, Shield, Globe, Clock } from "lucide-react"
+import { ComingSoonModal } from "@/components/coming-soon-modal"
 
-function AnimatedStat({ value, label, icon: Icon }: { value: number; label: string; icon: any }) {
+/* ── Animated counter ── */
+function Counter({ value, suffix = "+" }: { value: number; suffix?: string }) {
   const [display, setDisplay] = useState(0)
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true })
 
   useEffect(() => {
+    if (!inView) return
     const controls = animate(0, value, {
-      duration: 2,
+      duration: 2.2,
       ease: "easeOut",
       onUpdate: (v) => setDisplay(Math.floor(v)),
     })
-
     return () => controls.stop()
-  }, [value])
+  }, [inView, value])
 
   return (
-    <motion.div
-      whileHover={{ y: -4, scale: 1.02 }}
-      className="bg-background/40 backdrop-blur-md border border-foreground/10 rounded-2xl px-6 py-6 shadow-2xl hover:border-primary/50 transition-all group"
-    >
-      <div className="flex items-center gap-4 mb-2">
-        <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-500">
-          <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
-        </div>
-        <div className="text-4xl lg:text-5xl font-bold text-foreground tracking-tight">{display}+</div>
-      </div>
-      <div className="text-sm font-medium text-muted-foreground pl-1">{label}</div>
-    </motion.div>
+    <span ref={ref} className="tabular-nums">
+      {display}{suffix}
+    </span>
   )
 }
 
-import { ComingSoonModal } from "@/components/coming-soon-modal"
+const stats = [
+  { value: 38, suffix: "+", label: "Years of Excellence", icon: Clock },
+  { value: 500, suffix: "+", label: "Global Clients", icon: Globe },
+  { value: 100, suffix: "%", label: "Quality Assured", icon: Shield },
+  { value: 24, suffix: "/7", label: "Support Available", icon: Zap },
+]
+
+const industries = [
+  "Power Generation", "Sugar Mills", "Paper & Pulp", "Pharmaceuticals",
+  "Cement Plants", "Food & Beverage", "Chemical Processing", "Oil & Gas",
+  "Water Treatment", "Petrochemicals", "Fertilizers", "Steel Plants",
+]
+
+/* ── Floating orb ── */
+function Orb({ className }: { className: string }) {
+  return <div className={`absolute rounded-full blur-[120px] pointer-events-none ${className}`} />
+}
 
 export function Hero3D() {
   const [modalOpen, setModalOpen] = useState(false)
   const { scrollY } = useScroll()
-  const y1 = useTransform(scrollY, [0, 1000], [0, 200])
-  const y2 = useTransform(scrollY, [0, 1000], [0, -100])
-  const opacity = useTransform(scrollY, [0, 300], [1, 0])
+  const heroOpacity = useTransform(scrollY, [0, 500], [1, 0])
+  const heroY = useTransform(scrollY, [0, 500], [0, -120])
+
+  /* stagger children */
+  const container = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+  }
+  const item = {
+    hidden: { opacity: 0, y: 32 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+  }
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-background selection:bg-primary/30">
+    <>
+      {/* ═══════════════════  HERO  ═══════════════════ */}
+      <section className="relative min-h-screen w-full overflow-hidden bg-background flex flex-col">
 
-      {/* Modern Grid Overlay */}
-      <motion.div style={{ y: y1 }} className="absolute inset-0 z-[1] bg-[linear-gradient(color-mix(in_oklch,var(--foreground),transparent_97%)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_oklch,var(--foreground),transparent_97%)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_100%)] pointer-events-none" />
+        {/* ── Ambient orbs ── */}
+        <Orb className="w-[700px] h-[700px] bg-primary/20 top-[-200px] left-[-200px]" />
+        <Orb className="w-[500px] h-[500px] bg-orange-500/10 top-[20%] right-[-100px]" />
+        <Orb className="w-[400px] h-[400px] bg-primary/10 bottom-[0] left-[30%]" />
 
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-transparent to-background/90 z-[1]" />
-      <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-background/50 z-[1]" />
+        {/* ── Dot grid ── */}
+        <div
+          className="absolute inset-0 z-[1] pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(circle, oklch(0.6 0 0 / 15%) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+            maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 50%, transparent 100%)",
+          }}
+        />
 
-      {/* Content */}
-      <div className="relative z-[10] flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 py-20">
-        <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-
-          {/* Left Content */}
-          <motion.div style={{ y: y2, opacity }} className="text-left space-y-8">
-
-
-
-            {/* Main heading */}
-            <div className="space-y-2">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tighter text-foreground leading-[0.9]"
-              >
-                KEMPLAST
-                <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-400 to-primary bg-[length:200%_auto] animate-gradient">
-                  PROCESS SOLUTIONS
-                </span>
-              </motion.h1>
-            </div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-lg sm:text-xl text-muted-foreground max-w-xl leading-relaxed border-l-2 border-primary/50 pl-6"
-            >
-              Pioneering process instrumentation and industrial solutions since 1986. We engineer the future of fluid control systems.
-            </motion.p>
-
-            {/* Actions */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="flex flex-wrap gap-4 pt-4"
-            >
-              <MagneticButton>
-                <Link href="/products">
-                  <Button
-                    size="lg"
-                    className="rounded-full px-8 h-14 text-base font-semibold bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-105 transition-all shadow-[0_0_40px_-10px_rgba(var(--primary),0.5)]"
-                  >
-                    Get Started
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Button>
-                </Link>
-              </MagneticButton>
-
-              <MagneticButton>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="rounded-full px-8 h-14 text-base font-semibold border-foreground/20 text-foreground hover:bg-foreground/10 hover:border-foreground/40 backdrop-blur-sm"
-                  onClick={() => setModalOpen(true)}
-                >
-                  <BookOpen className="mr-2 w-5 h-5" />
-                  Our Catalog
-                </Button>
-              </MagneticButton>
-            </motion.div>
-
-            {/* Social Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="flex items-center gap-4"
-            >
-              <span className="text-sm text-muted-foreground font-medium">Follow us:</span>
-              <a
-                href="https://www.linkedin.com/company/42715487/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0A66C2]/10 border border-[#0A66C2]/20 text-[#0A66C2] hover:bg-[#0A66C2] hover:text-white transition-all text-sm font-medium"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-                LinkedIn
-              </a>
-              <a
-                href="https://www.indiamart.com/company/21640575/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1B6085]/10 border border-[#1B6085]/20 text-[#1B6085] hover:bg-[#1B6085] hover:text-white transition-all text-sm font-medium"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" /></svg>
-                IndiaMART
-              </a>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Stats (Floating) */}
-          <div className="relative hidden lg:block h-[600px]">
-            {/* This area lets the 3D scene show through more, but we float stats over it */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.8 }}
-              className="absolute top-10 right-10 z-20"
-            >
-              <AnimatedStat value={38} label="Years Experience" icon={Award} />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.9 }}
-              className="absolute top-1/2 right-0 -translate-y-1/2 z-20"
-            >
-              <AnimatedStat value={500} label="Global Clients" icon={Users} />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.0 }}
-              className="absolute bottom-10 right-20 z-20"
-            >
-              <AnimatedStat value={100} label="Quality Assurance" icon={Building2} />
-            </motion.div>
-          </div>
+        {/* ── Diagonal accent line ── */}
+        <div className="absolute top-0 left-0 w-full h-full z-[1] pointer-events-none overflow-hidden">
+          <div className="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-transparent via-primary/30 to-transparent translate-x-[40vw] rotate-6 origin-top" />
+          <div className="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-transparent via-primary/10 to-transparent translate-x-[55vw] rotate-6 origin-top" />
         </div>
 
-        {/* Scroll indicator */}
+        {/* ── Main content ── */}
+        <motion.div
+          style={{ y: heroY, opacity: heroOpacity }}
+          className="relative z-10 flex-1 flex items-center px-6 sm:px-10 lg:px-20 pt-28 pb-10"
+        >
+          <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-[1fr_auto] gap-16 items-center">
+
+            {/* Left content */}
+            <motion.div
+              variants={container}
+              initial="hidden"
+              animate="visible"
+              className="space-y-8 max-w-3xl"
+            >
+              {/* Badge */}
+              <motion.div variants={item}>
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 text-primary text-sm font-semibold tracking-wider uppercase">
+                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                  Est. 1986 · Trusted by Industry Leaders
+                </span>
+              </motion.div>
+
+              {/* Headline */}
+              <motion.div variants={item} className="space-y-1">
+                <h1 className="text-[clamp(3rem,8vw,7rem)] font-black tracking-tighter leading-[0.88] text-foreground">
+                  KEMPLAST
+                </h1>
+                <h1 className="text-[clamp(3rem,8vw,7rem)] font-black tracking-tighter leading-[0.88]">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-400 to-amber-500 bg-[length:200%] animate-gradient">
+                    PROCESS
+                  </span>
+                </h1>
+                <h1 className="text-[clamp(3rem,8vw,7rem)] font-black tracking-tighter leading-[0.88]">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-400 to-primary bg-[length:200%] animate-gradient [animation-delay:0.5s]">
+                    SOLUTIONS
+                  </span>
+                </h1>
+              </motion.div>
+
+              {/* Sub */}
+              <motion.p
+                variants={item}
+                className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-xl border-l-[3px] border-primary pl-6"
+              >
+                Pioneering process instrumentation and industrial solutions since{" "}
+                <span className="text-foreground font-semibold">1986</span>. We engineer the future of fluid control systems across South India and beyond.
+              </motion.p>
+
+              {/* CTAs */}
+              <motion.div variants={item} className="flex flex-wrap gap-4">
+                <Link href="/products">
+                  <motion.button
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-primary text-primary-foreground font-bold text-base shadow-[0_0_40px_-8px_hsl(var(--primary))] hover:shadow-[0_0_60px_-6px_hsl(var(--primary))] transition-all duration-300"
+                  >
+                    Explore Products
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </motion.button>
+                </Link>
+
+                <motion.button
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => setModalOpen(true)}
+                  className="inline-flex items-center gap-3 px-8 py-4 rounded-full border border-border bg-background/60 backdrop-blur-sm font-bold text-base hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
+                >
+                  <BookOpen className="w-5 h-5 text-primary" />
+                  Our Catalog
+                </motion.button>
+              </motion.div>
+
+              {/* Social */}
+              <motion.div variants={item} className="flex items-center gap-3 flex-wrap">
+                <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Connect</span>
+                <div className="w-8 h-px bg-border" />
+                <a
+                  href="https://www.linkedin.com/company/42715487/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0A66C2]/10 border border-[#0A66C2]/20 text-[#0A66C2] hover:bg-[#0A66C2] hover:text-white transition-all text-sm font-semibold"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                  LinkedIn
+                </a>
+                <a
+                  href="https://www.indiamart.com/company/21640575/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1B6085]/10 border border-[#1B6085]/20 text-[#1B6085] hover:bg-[#1B6085] hover:text-white transition-all text-sm font-semibold"
+                >
+                  <Globe className="w-4 h-4" />
+                  IndiaMART
+                </a>
+              </motion.div>
+            </motion.div>
+
+            {/* Right — stat cards stacked vertically */}
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.15, delayChildren: 0.6 } } }}
+              className="hidden lg:flex flex-col gap-4 w-[220px]"
+            >
+              {stats.map((s) => (
+                <motion.div
+                  key={s.label}
+                  variants={{ hidden: { opacity: 0, x: 40 }, visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22,1,0.36,1] } } }}
+                  whileHover={{ scale: 1.04, x: -4 }}
+                  className="group relative px-6 py-5 rounded-2xl bg-card/70 backdrop-blur-md border border-border hover:border-primary/40 shadow-xl hover:shadow-primary/10 transition-all duration-300 overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative flex flex-col gap-1">
+                    <s.icon className="w-5 h-5 text-primary mb-1" />
+                    <div className="text-3xl font-black text-foreground tracking-tight">
+                      <Counter value={s.value} suffix={s.suffix} />
+                    </div>
+                    <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">{s.label}</div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* ── Scroll cue ── */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          transition={{ delay: 2 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
         >
-          <span className="text-[10px] uppercase tracking-[0.3em] text-gray-500">Scroll to explore</span>
+          <span className="text-[10px] tracking-[0.35em] uppercase text-muted-foreground">Scroll</span>
           <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
-            className="w-px h-12 bg-gradient-to-b from-primary/0 via-primary to-primary/0"
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+            className="w-px h-10 bg-gradient-to-b from-primary/0 via-primary to-primary/0"
           />
         </motion.div>
+      </section>
+
+      {/* ═══════════════════  INDUSTRIES MARQUEE  ═══════════════════ */}
+      <div className="relative overflow-hidden bg-primary py-4 z-20">
+        <div className="flex animate-scroll whitespace-nowrap">
+          {[...industries, ...industries].map((ind, i) => (
+            <span key={i} className="inline-flex items-center gap-3 px-6 text-sm font-bold text-primary-foreground/90 uppercase tracking-widest">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary-foreground/60 flex-shrink-0" />
+              {ind}
+            </span>
+          ))}
+        </div>
       </div>
+
       <ComingSoonModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
-    </section>
+    </>
   )
 }
