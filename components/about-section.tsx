@@ -151,10 +151,10 @@ export function AboutSection() {
             initial={{ opacity: 0, x: 30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative space-y-0"
+            className="relative space-y-0 ml-2"
           >
             {/* Vertical connector line */}
-            <div className="absolute left-8 top-8 bottom-8 w-px bg-gradient-to-b from-primary/60 via-orange-400/40 to-primary/20 rounded-full" />
+            <div className="absolute left-[7px] top-8 bottom-8 w-[2px] bg-gradient-to-b from-primary/60 via-orange-400/40 to-primary/20 rounded-full" />
 
             {milestones.map((m, i) => (
               <motion.div
@@ -162,23 +162,30 @@ export function AboutSection() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.3 + i * 0.18, duration: 0.7 }}
-                className={`group relative flex gap-6 ${i < milestones.length - 1 ? "pb-8" : ""}`}
+                className={`group relative flex gap-6 sm:gap-8 ${i < milestones.length - 1 ? "pb-8" : ""}`}
               >
-                {/* Icon node */}
-                <div className="relative flex-shrink-0 z-10">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${m.color} border border-primary/20 flex items-center justify-center group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10 transition-all duration-400`}>
-                    <m.icon className="w-7 h-7 text-primary" />
-                  </div>
+                {/* Timeline dot */}
+                <div className="relative z-10 flex flex-col items-center mt-6 flex-shrink-0">
+                  <div className="w-4 h-4 rounded-full bg-background border-[3px] border-primary group-hover:scale-[1.3] group-hover:bg-primary transition-all duration-300 shadow-[0_0_10px_rgba(249,115,22,0.3)] group-hover:shadow-[0_0_15px_rgba(249,115,22,0.6)]" />
                 </div>
 
-                {/* Content */}
-                <div className="flex-1 pt-2 pb-2">
-                  <div className="flex items-baseline gap-3 mb-2">
-                    <span className="text-3xl font-black text-primary tracking-tight">{m.year}</span>
-                    <span className="h-px flex-1 bg-border" />
+                <div className="flex gap-4 sm:gap-6 flex-1 items-start">
+                  {/* Icon node */}
+                  <div className="relative flex-shrink-0 z-10">
+                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${m.color} border border-primary/20 flex items-center justify-center group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10 transition-all duration-400`}>
+                      <m.icon className="w-7 h-7 text-primary" />
+                    </div>
                   </div>
-                  <h4 className="font-bold text-lg text-foreground mb-1 group-hover:text-primary transition-colors">{m.title}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{m.description}</p>
+
+                  {/* Content */}
+                  <div className="flex-1 pt-1 pb-2">
+                    <div className="flex items-baseline gap-3 mb-2">
+                      <span className="text-3xl font-black text-primary tracking-tight">{m.year}</span>
+                      <span className="h-px flex-1 bg-border" />
+                    </div>
+                    <h4 className="font-bold text-lg text-foreground mb-1 group-hover:text-primary transition-colors">{m.title}</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{m.description}</p>
+                  </div>
                 </div>
               </motion.div>
             ))}

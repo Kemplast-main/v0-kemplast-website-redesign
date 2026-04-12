@@ -92,7 +92,7 @@ export function Hero3D() {
         {/* ── Main content ── */}
         <motion.div
           style={{ y: heroY, opacity: heroOpacity }}
-          className="relative z-10 flex-1 flex items-center px-6 sm:px-10 lg:px-20 pt-28 pb-10"
+          className="relative z-10 flex-1 flex items-center px-6 sm:px-10 lg:px-20 pt-28 pb-10 pointer-events-none"
         >
           <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-[1fr_auto] gap-16 items-center">
 
@@ -101,7 +101,7 @@ export function Hero3D() {
               variants={container}
               initial="hidden"
               animate="visible"
-              className="space-y-8 max-w-3xl"
+              className="space-y-8 max-w-3xl pointer-events-auto"
             >
               {/* Badge */}
               <motion.div variants={item}>
@@ -186,32 +186,38 @@ export function Hero3D() {
               </motion.div>
             </motion.div>
 
-            {/* Right — stat cards stacked vertically */}
+            {/* Right — scattered stat cards */}
             <motion.div
               initial="hidden"
               animate="visible"
               variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.15, delayChildren: 0.6 } } }}
-              className="hidden lg:flex flex-col gap-4 w-[220px]"
+              className="hidden lg:flex flex-col gap-8 w-[320px] pointer-events-auto items-center"
             >
-              {stats.map((s, idx) => (
+              {stats.map((s, idx) => {
+                // Scatter offsets to break the straight line
+                const scatterOffsets = [30, -60, 40, -50]
+                const rotOffset = idx % 2 === 0 ? 1.5 : -1.5
+
+                return (
                 <motion.div
                   key={s.label}
-                  variants={{ hidden: { opacity: 0, x: 40 }, visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22,1,0.36,1] as [number, number, number, number] } } }}
-                  className="w-full"
+                  variants={{ hidden: { opacity: 0, x: 50 }, visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: [0.22,1,0.36,1] as [number, number, number, number] } } }}
+                  style={{ marginLeft: `${scatterOffsets[idx]}px` }}
+                  className="w-[220px]"
                 >
                   <motion.div
-                    animate={{ y: [0, -10, 0] }}
+                    animate={{ y: [0, -12, 0], rotate: [0, rotOffset, 0] }}
                     transition={{
-                      duration: 4.5,
+                      duration: 5 + idx * 0.2,
                       repeat: Infinity,
                       ease: "easeInOut",
-                      delay: 0.8 + idx * 0.4,
+                      delay: 0.5 + idx * 0.3,
                     }}
                     whileHover={{ scale: 1.04, x: -4 }}
-                    className="group relative px-6 py-5 rounded-2xl bg-card/70 backdrop-blur-md border border-border hover:border-primary/40 shadow-xl hover:shadow-primary/10 transition-all duration-300 overflow-hidden"
+                    className="group relative px-6 py-5 rounded-2xl bg-white/95 backdrop-blur-xl border-[1.5px] border-primary/30 hover:border-primary/60 shadow-xl shadow-primary/10 hover:shadow-primary/30 transition-all duration-300 overflow-hidden"
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <div className="relative flex flex-col gap-1">
+                    <div className="relative flex flex-col gap-1 z-10">
                       <s.icon className="w-5 h-5 text-primary mb-1" />
                       <div className="text-3xl font-black text-foreground tracking-tight">
                         <Counter value={s.value} suffix={s.suffix} />
@@ -220,7 +226,8 @@ export function Hero3D() {
                     </div>
                   </motion.div>
                 </motion.div>
-              ))}
+                )
+              })}
             </motion.div>
           </div>
         </motion.div>
