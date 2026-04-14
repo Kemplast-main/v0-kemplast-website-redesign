@@ -20,10 +20,19 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   }
 
   return {
-    title: post.title,
+    title: `${post.title} | Kemplast Blog`,
     description: post.excerpt,
     alternates: {
       canonical: `https://kemplast.in/blog/${post.slug}`,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: `https://kemplast.in/blog/${post.slug}`,
+      type: "article",
+      publishedTime: post.date,
+      authors: [post.author],
+      siteName: "Kemplast Process Solutions",
     },
   }
 }
@@ -48,8 +57,37 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     }))
   }
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: { "@type": "Person", name: post.author },
+    publisher: {
+      "@type": "Organization",
+      "@id": "https://kemplast.in/#organization",
+      name: "Kemplast Process Solutions",
+      logo: { "@type": "ImageObject", url: "https://kemplast.in/images/kemplast-logo-updated.png" },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `https://kemplast.in/blog/${post.slug}` },
+  }
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://kemplast.in" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://kemplast.in/blog" },
+      { "@type": "ListItem", position: 3, name: post.title, item: `https://kemplast.in/blog/${post.slug}` },
+    ],
+  }
+
   return (
     <main className="min-h-screen pt-24 pb-16 relative">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
