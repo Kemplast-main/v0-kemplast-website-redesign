@@ -2,11 +2,32 @@ import type { Metadata } from "next"
 import { BrandPageLayout } from "@/components/brand-page-layout"
 
 export const metadata: Metadata = {
-  title: "Ventil Authorized Distributor & Valve Testing Equipment Dealer in India",
+  title: "Ventil Authorized Distributor India | Valve Testing Equipment & Test Benches | Kemplast",
   description:
-    "Top authorized distributor of Ventil valve testing equipment in India. Kemplast provides high-quality test benches and repair machines pan-India.",
+    "Kemplast is India's top Ventil authorized distributor & dealer. Buy genuine Ventil valve test benches, safety valve test units, control valve test systems, lapping machines & portable test equipment. Serving Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune & pan-India. Call +91-40-27711000.",
+  keywords: [
+    "Ventil authorized distributor India",
+    "Ventil authorized dealer India",
+    "Ventil valve testing equipment India",
+    "valve test bench dealer India",
+    "safety valve test bench India",
+    "control valve test unit India",
+    "valve testing equipment supplier India",
+    "portable valve test equipment India",
+    "valve lapping machine dealer India",
+    "valve repair equipment India",
+    "Ventil equipment Hyderabad",
+    "valve testing equipment Mumbai",
+    "valve testing machine India",
+    "buy Ventil test bench India",
+  ],
   alternates: {
     canonical: "https://kemplast.in/ventil-equipment-india",
+  },
+  openGraph: {
+    title: "Ventil Authorized Distributor India | Valve Testing Equipment | Kemplast",
+    description: "Buy genuine Ventil valve test benches and testing equipment from India's authorized dealer — Kemplast Process Solutions.",
+    url: "https://kemplast.in/ventil-equipment-india",
   },
 }
 
@@ -43,6 +64,37 @@ const products = [
   }
 ]
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://kemplast.in" },
+    { "@type": "ListItem", position: 2, name: "Ventil Equipment India", item: "https://kemplast.in/ventil-equipment-india" },
+  ],
+}
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Is Kemplast an authorized Ventil distributor in India?",
+      acceptedAnswer: { "@type": "Answer", text: "Yes. Kemplast Process Solutions is an authorized distributor and dealer for Ventil valve testing equipment in India, supplying genuine Ventil test benches with full manufacturer warranty and technical support." },
+    },
+    {
+      "@type": "Question",
+      name: "What Ventil products does Kemplast supply?",
+      acceptedAnswer: { "@type": "Answer", text: "Kemplast supplies Ventil test benches for safety relief valves, control valve test units, portable in-situ test equipment, valve lapping and grinding machines, actuator test benches, and data acquisition systems across India." },
+    },
+    {
+      "@type": "Question",
+      name: "Where can I buy Ventil valve testing equipment in India?",
+      acceptedAnswer: { "@type": "Answer", text: "Buy genuine Ventil valve testing equipment from Kemplast Process Solutions — India's authorized Ventil dealer. We supply to all major industrial cities. Contact: +91-40-27711000 or sales@kemplast.in." },
+    },
+  ],
+}
+
 export default function VentilPage() {
   const content = (
     <>
@@ -72,13 +124,17 @@ export default function VentilPage() {
   )
 
   return (
-    <BrandPageLayout
-      brandName="Ventil"
-      title="Ventil Authorized Distributor in India"
-      description="Ensure safety and compliance with Ventil's industry-leading valve testing and repair equipment. Expertly supplied and supported by Kemplast, your trusted authorized dealer."
-      heroImage="/images/ventil-logo.svg"
-      products={products}
-      content={content}
-    />
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <BrandPageLayout
+        brandName="Ventil"
+        title="Ventil Authorized Distributor in India"
+        description="Ensure safety and compliance with Ventil's industry-leading valve testing and repair equipment. Expertly supplied and supported by Kemplast, your trusted authorized dealer."
+        heroImage="/images/ventil-logo.svg"
+        products={products}
+        content={content}
+      />
+    </>
   )
 }
