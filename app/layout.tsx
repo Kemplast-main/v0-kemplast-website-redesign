@@ -119,23 +119,56 @@ export const metadata: Metadata = {
   },
 }
 
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://kemplast.in/#website",
+  name: "Kemplast Process Solutions",
+  url: "https://kemplast.in",
+  description: "India's most trusted authorized dealer for Siemens, WIKA, RKS, Spitmaan, Ventil & Scientific Devices industrial instruments.",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: "https://kemplast.in/products?q={search_term_string}",
+    },
+    "query-input": "required name=search_term_string",
+  },
+  publisher: {
+    "@id": "https://kemplast.in/#organization",
+  },
+}
+
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": "https://kemplast.in/#organization",
   name: "Kemplast Process Solutions",
-  alternateName: "Kemplast",
+  alternateName: ["Kemplast", "Kemplast India"],
   url: "https://kemplast.in",
-  logo: "https://kemplast.in/images/kemplast-logo-updated.png",
+  logo: {
+    "@type": "ImageObject",
+    url: "https://kemplast.in/images/kemplast-logo-updated.png",
+    width: 400,
+    height: 112,
+  },
   foundingDate: "1986",
   description:
-    "South India's most trusted authorized dealer and distributor for Siemens, WIKA, RKS, Spitmaan, Ventil & Scientific Devices industrial instruments. Specializing in process instrumentation, pressure gauges, PLCs, temperature sensors, flow meters, valves, packing and insulation products. Serving Hyderabad, Secunderabad, Telangana and all of South India since 1986.",
+    "India's most trusted authorized dealer and distributor for Siemens, WIKA, RKS, Spitmaan, Ventil & Scientific Devices industrial instruments. Specializing in process instrumentation, pressure gauges, PLCs, temperature sensors, flow meters, valves, packing and insulation products. Serving Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune and pan-India since 1986.",
   areaServed: [
+    { "@type": "Country", name: "India" },
     { "@type": "State", name: "Telangana" },
     { "@type": "State", name: "Andhra Pradesh" },
     { "@type": "State", name: "Karnataka" },
     { "@type": "State", name: "Tamil Nadu" },
     { "@type": "State", name: "Kerala" },
+    { "@type": "State", name: "Maharashtra" },
+    { "@type": "State", name: "Gujarat" },
+    { "@type": "State", name: "West Bengal" },
+    { "@type": "State", name: "Delhi" },
     { "@type": "AdministrativeArea", name: "South India" },
+    { "@type": "AdministrativeArea", name: "North India" },
+    { "@type": "AdministrativeArea", name: "West India" },
   ],
   address: {
     "@type": "PostalAddress",
@@ -171,12 +204,12 @@ const organizationSchema = {
     "@type": "OfferCatalog",
     name: "Industrial Instrumentation & Process Equipment",
     itemListElement: [
-      { "@type": "Offer", itemOffered: { "@type": "Product", name: "Siemens PLC & Automation Systems", brand: "Siemens" } },
-      { "@type": "Offer", itemOffered: { "@type": "Product", name: "WIKA Pressure Gauges & Temperature Instruments", brand: "WIKA" } },
-      { "@type": "Offer", itemOffered: { "@type": "Product", name: "RKS Industrial Valves & Fittings", brand: "RKS" } },
-      { "@type": "Offer", itemOffered: { "@type": "Product", name: "Spitmaan Packing & Sealing Materials", brand: "Spitmaan" } },
-      { "@type": "Offer", itemOffered: { "@type": "Product", name: "Ventil Process Equipment", brand: "Ventil" } },
-      { "@type": "Offer", itemOffered: { "@type": "Product", name: "Scientific Devices Measurement Instruments", brand: "Scientific Devices" } },
+      { "@type": "Offer", itemOffered: { "@type": "Product", name: "Siemens PLC & Automation Systems", brand: { "@type": "Brand", name: "Siemens" } } },
+      { "@type": "Offer", itemOffered: { "@type": "Product", name: "WIKA Pressure Gauges & Temperature Instruments", brand: { "@type": "Brand", name: "WIKA" } } },
+      { "@type": "Offer", itemOffered: { "@type": "Product", name: "RKS Industrial Valves & Fittings", brand: { "@type": "Brand", name: "RKS" } } },
+      { "@type": "Offer", itemOffered: { "@type": "Product", name: "Spitmaan Packing & Sealing Materials", brand: { "@type": "Brand", name: "Spitmaan" } } },
+      { "@type": "Offer", itemOffered: { "@type": "Product", name: "Ventil Process Equipment", brand: { "@type": "Brand", name: "Ventil" } } },
+      { "@type": "Offer", itemOffered: { "@type": "Product", name: "Scientific Devices Measurement Instruments", brand: { "@type": "Brand", name: "Scientific Devices" } } },
     ]
   }
 }
@@ -189,6 +222,14 @@ export default function RootLayout({
   return (
     <html lang="en" className="light" suppressHydrationWarning>
       <body className="font-sans antialiased" suppressHydrationWarning>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
           <ScrollProgress />
           <GlobalBackground />
