@@ -81,6 +81,9 @@ export const metadata: Metadata = {
     images: ["/images/kemplast-logo-updated.png"],
   },
   alternates: { canonical: "https://kemplast.in" },
+  verification: {
+    google: "xWDb8MihZE6hT8QVfHxE1dT3EYC8COtG5RMeADbEh4s",
+  },
   icons: {
     icon: "/kemplast-favicon.png",
     shortcut: "/kemplast-favicon.png",
