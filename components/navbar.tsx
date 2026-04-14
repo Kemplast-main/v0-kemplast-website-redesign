@@ -79,7 +79,7 @@ export function Navbar() {
                       
                       {/* Dropdown Menu */}
                       <div className={`absolute top-full left-1/2 -translate-x-1/2 w-56 pt-2 transition-all duration-200 origin-top ${brandsOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
-                        <div className="glass bg-background/95 backdrop-blur-xl border border-border rounded-xl shadow-xl overflow-hidden p-1">
+                        <div className="bg-background/98 backdrop-blur-xl border border-border rounded-xl shadow-2xl overflow-hidden p-1">
                           {brandItems.map((brand) => (
                             <Link
                               key={brand.name}
