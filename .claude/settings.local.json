@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls \"D:\\\\v0-kemplast-website-redesign\\\\next.config\"*)"
+    ]
+  }
+}
