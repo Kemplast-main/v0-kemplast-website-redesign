@@ -10,6 +10,7 @@ const partners = [
   { name: "Ventil", src: "/images/ventil-logo.svg" },
   { name: "Spitmaan", src: "/images/spitmaan-logo.png" },
   { name: "RKS", src: "/images/rks-logo.png" },
+  { name: "WIKA", src: "/images/WIKA.webp" },
 ]
 
 export function PartnersSection() {

@@ -25,6 +25,7 @@ const brandItems = [
   { name: "Spitmaan", href: "/spitmaan-solutions-india", logo: "/images/spitmaan-logo.png" },
   { name: "RKS", href: "/rks-industrial-solutions", logo: "/images/rks-logo.png" },
   { name: "Scientific Devices", href: "/scientific-devices-india", logo: "/images/scientific-devices-logo.png" },
+  { name: "WIKA", href: "/wika-instruments-india", logo: "/images/WIKA.webp" },
 ]
 
 export function Navbar() {
