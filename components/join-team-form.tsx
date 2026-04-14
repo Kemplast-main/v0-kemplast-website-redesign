@@ -27,8 +27,8 @@ export function JoinTeamForm() {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0]
             // Validate file size (5MB max)
-            if (file.size > 5 * 1024 * 1024) {
-                toast.error("File size must be under 5MB")
+            if (file.size > 3 * 1024 * 1024) {
+                toast.error("File size must be under 3MB")
                 e.target.value = ""
                 return
             }
@@ -179,7 +179,7 @@ export function JoinTeamForm() {
                         onChange={handleFileChange}
                     />
                 </div>
-                <p className="text-xs text-muted-foreground">Max file size: 5MB</p>
+                <p className="text-xs text-muted-foreground">Max file size: 3MB</p>
             </div>
 
             <div className="space-y-2">

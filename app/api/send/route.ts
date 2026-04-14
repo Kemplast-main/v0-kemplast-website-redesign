@@ -8,9 +8,9 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { name, email, phone, company, product, subject, message } = body;
 
-    const data = await resend.emails.send({
+    await resend.emails.send({
       from: "Kemplast Website <noreply@kemplast.in>",
-      to: ["sales@kemplast.in"],
+      to: ["sales@kemplast.in", "gpejavar@gmail.com"],
       replyTo: email,
       subject: `New Enquiry / Quote Request: ${subject}`,
       html: `
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
       `,
     });
 
-    return NextResponse.json(data);
+    return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Unknown error" },
