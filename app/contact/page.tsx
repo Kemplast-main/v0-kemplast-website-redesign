@@ -184,16 +184,18 @@ function ContactForm() {
     }
 
     try {
-      // Save to database
-      const { error } = await supabase.from("quotes").insert([payload])
-      if (error) throw error
-
-      // Send email notification (best-effort — don't block on failure)
-      fetch("/api/send", {
+      // Send email first — primary notification (must succeed)
+      const res = await fetch("/api/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-      }).catch(() => {})
+      })
+      if (!res.ok) throw new Error("Failed to send email")
+
+      // Save to database — best-effort record keeping
+      supabase.from("quotes").insert([payload]).then(({ error }) => {
+        if (error) console.error("DB save failed (non-critical):", error.message)
+      })
 
       toast.success("Request sent successfully! We will get back to you soon.")
       setFormData({ name: "", email: "", product: [], specificProducts: [], subject: "", message: "" })

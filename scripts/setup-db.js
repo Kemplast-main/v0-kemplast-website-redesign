@@ -1,16 +1,21 @@
 // Run once to create all database tables in Supabase.
 // Usage: npm run db:setup
-// Requires SUPABASE_DB_URL in .env.local
+//
+// Requires in .env.local:
+//   SUPABASE_ACCESS_TOKEN — get from https://supabase.com/dashboard/account/tokens
+//
+// No database connection string needed — uses the Supabase Management API.
 
-const { Client } = require("pg");
 const fs = require("fs");
 const path = require("path");
+const https = require("https");
 
-// Load .env.local manually (Next.js doesn't auto-load it in plain node scripts)
+const PROJECT_REF = "haznwgcywltiasqcpawp";
+
 function loadEnv() {
   const envPath = path.join(__dirname, "..", ".env.local");
   if (!fs.existsSync(envPath)) {
-    console.error("❌ .env.local file not found");
+    console.error("❌  .env.local not found");
     process.exit(1);
   }
   const lines = fs.readFileSync(envPath, "utf8").split("\n");
@@ -25,103 +30,133 @@ function loadEnv() {
   }
 }
 
-const SQL = `
--- ─────────────────────────────────────────────
--- QUOTES (contact / quote request form)
--- ─────────────────────────────────────────────
-create table if not exists quotes (
-  id          uuid        primary key default gen_random_uuid(),
-  created_at  timestamptz not null    default now(),
-  name        text        not null,
-  email       text        not null,
-  phone       text,
-  company     text,
-  subject     text,
-  product     text[],
-  message     text
-);
+function httpsPost(url, token, body) {
+  return new Promise((resolve, reject) => {
+    const parsed = new URL(url);
+    const data = JSON.stringify(body);
+    const req = https.request(
+      {
+        hostname: parsed.hostname,
+        path: parsed.pathname,
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "Content-Length": Buffer.byteLength(data),
+        },
+      },
+      (res) => {
+        let raw = "";
+        res.on("data", (chunk) => (raw += chunk));
+        res.on("end", () => {
+          try {
+            resolve({ status: res.statusCode, body: JSON.parse(raw) });
+          } catch {
+            resolve({ status: res.statusCode, body: raw });
+          }
+        });
+      }
+    );
+    req.on("error", reject);
+    req.write(data);
+    req.end();
+  });
+}
 
--- Allow anyone to insert, only authenticated users to read
-alter table quotes enable row level security;
+const STATEMENTS = [
+  // quotes table
+  `create table if not exists quotes (
+    id          uuid        primary key default gen_random_uuid(),
+    created_at  timestamptz not null    default now(),
+    name        text        not null,
+    email       text        not null,
+    phone       text,
+    company     text,
+    subject     text,
+    product     text[],
+    message     text
+  )`,
 
-do $$
-begin
-  if not exists (
-    select 1 from pg_policies where tablename = 'quotes' and policyname = 'quotes_anon_insert'
-  ) then
-    execute 'create policy quotes_anon_insert on quotes for insert to anon with check (true)';
-  end if;
-  if not exists (
-    select 1 from pg_policies where tablename = 'quotes' and policyname = 'quotes_auth_select'
-  ) then
-    execute 'create policy quotes_auth_select on quotes for select to authenticated using (true)';
-  end if;
-end
-$$;
+  `alter table quotes enable row level security`,
 
--- ─────────────────────────────────────────────
--- APPLICATIONS (careers / join-team form)
--- ─────────────────────────────────────────────
-create table if not exists applications (
-  id               uuid        primary key default gen_random_uuid(),
-  created_at       timestamptz not null    default now(),
-  name             text        not null,
-  email            text        not null,
-  phone            text,
-  position         text,
-  message          text,
-  resume_file_name text
-);
+  `do $$ begin
+    if not exists (select 1 from pg_policies where tablename='quotes' and policyname='quotes_anon_insert') then
+      execute 'create policy quotes_anon_insert on quotes for insert to anon with check (true)';
+    end if;
+    if not exists (select 1 from pg_policies where tablename='quotes' and policyname='quotes_auth_select') then
+      execute 'create policy quotes_auth_select on quotes for select to authenticated using (true)';
+    end if;
+  end $$`,
 
-alter table applications enable row level security;
+  // applications table
+  `create table if not exists applications (
+    id               uuid        primary key default gen_random_uuid(),
+    created_at       timestamptz not null    default now(),
+    name             text        not null,
+    email            text        not null,
+    phone            text,
+    position         text,
+    message          text,
+    resume_file_name text
+  )`,
 
-do $$
-begin
-  if not exists (
-    select 1 from pg_policies where tablename = 'applications' and policyname = 'applications_anon_insert'
-  ) then
-    execute 'create policy applications_anon_insert on applications for insert to anon with check (true)';
-  end if;
-  if not exists (
-    select 1 from pg_policies where tablename = 'applications' and policyname = 'applications_auth_select'
-  ) then
-    execute 'create policy applications_auth_select on applications for select to authenticated using (true)';
-  end if;
-end
-$$;
-`;
+  `alter table applications enable row level security`,
+
+  `do $$ begin
+    if not exists (select 1 from pg_policies where tablename='applications' and policyname='applications_anon_insert') then
+      execute 'create policy applications_anon_insert on applications for insert to anon with check (true)';
+    end if;
+    if not exists (select 1 from pg_policies where tablename='applications' and policyname='applications_auth_select') then
+      execute 'create policy applications_auth_select on applications for select to authenticated using (true)';
+    end if;
+  end $$`,
+];
+
+async function runQuery(token, query) {
+  const url = `https://api.supabase.com/v1/projects/${PROJECT_REF}/database/query`;
+  const result = await httpsPost(url, token, { query });
+
+  if (result.status >= 400) {
+    const msg =
+      typeof result.body === "object"
+        ? result.body.message || result.body.error || JSON.stringify(result.body)
+        : result.body;
+    throw new Error(`HTTP ${result.status}: ${msg}`);
+  }
+  return result.body;
+}
 
 async function main() {
   loadEnv();
 
-  const dbUrl = process.env.SUPABASE_DB_URL;
-  if (!dbUrl || dbUrl.includes("YOUR_PASSWORD")) {
+  const token = process.env.SUPABASE_ACCESS_TOKEN;
+  if (!token || token === "your_access_token_here") {
     console.error(
-      "❌  SUPABASE_DB_URL is not set in .env.local.\n" +
-      "    Go to: Supabase Dashboard → Settings → Database → Connection string → URI\n" +
-      "    Copy the URI, replace [YOUR-PASSWORD] with your database password, and add it to .env.local as:\n" +
-      "    SUPABASE_DB_URL=postgresql://postgres.xxxxx:[PASSWORD]@aws-0-xxx.pooler.supabase.com:6543/postgres"
+      "❌  SUPABASE_ACCESS_TOKEN is not set in .env.local.\n\n" +
+      "    1. Go to: https://supabase.com/dashboard/account/tokens\n" +
+      "    2. Click \"Generate new token\", name it \"kemplast-setup\"\n" +
+      "    3. Copy the token and add it to .env.local:\n" +
+      "       SUPABASE_ACCESS_TOKEN=sbp_xxxxxxxxxxxx\n"
     );
     process.exit(1);
   }
 
-  const client = new Client({ connectionString: dbUrl, ssl: { rejectUnauthorized: false } });
+  console.log("Running migrations via Supabase Management API...\n");
 
-  console.log("Connecting to Supabase PostgreSQL...");
-  await client.connect();
-  console.log("✅  Connected.");
+  for (const sql of STATEMENTS) {
+    const preview = sql.trim().split("\n")[0].slice(0, 60);
+    process.stdout.write(`  → ${preview}... `);
+    await runQuery(token, sql);
+    console.log("✅");
+  }
 
-  console.log("Running migrations...");
-  await client.query(SQL);
-  console.log("✅  Tables created / verified:");
-  console.log("     • quotes");
-  console.log("     • applications");
-  console.log("\nDatabase is ready.");
-
-  await client.end();
+  console.log("\n🎉  Database is ready!");
+  console.log("     • quotes table");
+  console.log("     • applications table");
+  console.log("     • RLS policies configured\n");
 }
 
 main().catch((err) => {
-  console.error("❌  Migration failed:", err.message);
+  console.error("\n❌  Migration failed:", err.message);
   process.exit(1);
 });

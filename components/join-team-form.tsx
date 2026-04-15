@@ -65,23 +65,28 @@ export function JoinTeamForm() {
                 resumeFileName = resumeFile.name
             }
 
-            // Save to database
-            const { error: dbError } = await supabase.from("applications").insert([{
+            // Send email first — primary notification (must succeed)
+            const response = await fetch("/api/send-application", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ ...formData, resumeBase64, resumeFileName }),
+            })
+            if (!response.ok) {
+                const errorData = await response.json()
+                throw new Error(errorData.error || "Failed to submit application")
+            }
+
+            // Save to database — best-effort record keeping
+            supabase.from("applications").insert([{
                 name: formData.name,
                 email: formData.email,
                 phone: formData.phone,
                 position: formData.position,
                 message: formData.message,
                 resume_file_name: resumeFileName || null,
-            }])
-            if (dbError) throw dbError
-
-            // Send email with resume attachment (best-effort)
-            fetch("/api/send-application", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ ...formData, resumeBase64, resumeFileName }),
-            }).catch(() => {})
+            }]).then(({ error }) => {
+                if (error) console.error("DB save failed (non-critical):", error.message)
+            })
 
             toast.success("Application submitted successfully! Good luck!")
 
