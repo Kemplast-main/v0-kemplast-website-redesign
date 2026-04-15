@@ -27,7 +27,7 @@ const teamMembers = [
     position: "Director",
     name: "Badri",
     phone: "9849424374",
-    email: "-",
+    email: "kemplast_asbestos@yahoo.co.in",
   },
   {
     id: 4,
