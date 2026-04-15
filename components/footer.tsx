@@ -143,7 +143,7 @@ export function Footer() {
               Bangalore Office
             </div>
             <iframe 
-              src="https://www.google.com/maps?q=No+41,+15th+Cross,+MTS+Layout,+Kengeri+Satellite+Town,+Bangalore+-+560060&output=embed"
+              src="https://www.google.com/maps?q=1st+cross,+2nd+Main+Rd,+NGEF+Layout,+Sanjayanagara,+Bengaluru,+Karnataka+560094,+India&output=embed"
               width="100%" 
               height="220" 
               style={{ border: 0 }} 
