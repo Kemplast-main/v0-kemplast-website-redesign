@@ -3,7 +3,8 @@
     "allow": [
       "Bash(ls \"D:\\\\v0-kemplast-website-redesign\\\\next.config\"*)",
       "mcp__ide__getDiagnostics",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(npx tsc *)"
     ]
   }
 }
