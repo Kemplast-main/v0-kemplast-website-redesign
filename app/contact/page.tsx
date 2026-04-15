@@ -29,10 +29,10 @@ const contactInfo = [
     icon: Building2,
     title: "Bangalore Office",
     details: [
-      "No: 41, 15th Cross,",
-      "MTS Layout,",
-      "Kengeri Satellite Town,",
-      "Bangalore - 560060, India",
+      "1st cross, 2nd Main Rd,",
+      "NGEF Layout, Sanjayanagara,",
+      "Bengaluru, Karnataka",
+      "560094, India",
     ],
   },
   {

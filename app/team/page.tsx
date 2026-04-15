@@ -68,7 +68,7 @@ const teamMembers = [
     id: 9,
     position: "Associate Engineer",
     name: "Preetha",
-    phone: "-",
+    phone: "8977754031",
     email: "blr@kemplast.in",
   },
   {
@@ -132,8 +132,8 @@ export default function TeamPage() {
               project.
             </p>
             <div className="flex justify-center">
-              <Link 
-                href="#join-team" 
+              <Link
+                href="#join-team"
                 className="inline-flex items-center gap-2 px-8 py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-medium rounded-full shadow-lg transition-transform hover:scale-105"
               >
                 Want to join our team? <ArrowRight className="w-4 h-4" />
