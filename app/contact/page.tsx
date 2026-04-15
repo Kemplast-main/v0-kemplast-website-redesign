@@ -18,7 +18,6 @@ const contactInfo = [
     icon: Building2,
     title: "Secunderabad Office",
     details: [
-      "Kemplast Inc",
       "Kemplast Process Solutions",
       "4-3-83 to 85 Laxmana Business Ctr",
       "Hill Street, Ranigunj",
