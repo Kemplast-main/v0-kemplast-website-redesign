@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
 
         const resend = new Resend(process.env.RESEND_API_KEY);
 
-        await resend.emails.send({
+        const { error: sendError } = await resend.emails.send({
             from: "Kemplast Careers <noreply@kemplast.in>",
             to: ["sales@kemplast.in", "gpejavar@gmail.com", "chaitanya@kemplast.in"],
             replyTo: email,
@@ -80,6 +80,11 @@ export async function POST(req: NextRequest) {
                 </div>
             `,
         });
+
+        if (sendError) {
+            console.error("Resend error:", sendError);
+            throw new Error(sendError.message);
+        }
 
         return NextResponse.json({ success: true, message: "Application submitted successfully" });
     } catch (error) {

@@ -4,6 +4,10 @@ import { getSupabaseAdmin } from "@/lib/supabase-admin";
 
 export async function POST(req: NextRequest) {
   try {
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error("Email service is not configured (missing RESEND_API_KEY).");
+    }
+
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const body = await req.json();
@@ -15,7 +19,7 @@ export async function POST(req: NextRequest) {
       .insert([{ name, email, phone: body.phone ?? null, company: body.company ?? null, product, subject, message }]);
     if (dbError) console.error("DB insert failed:", dbError.message);
 
-    await resend.emails.send({
+    const { error: sendError } = await resend.emails.send({
       from: "Kemplast Website <noreply@kemplast.in>",
       to: ["sales@kemplast.in", "gpejavar@gmail.com", "chaitanya@kemplast.in"],
       replyTo: email,
@@ -64,6 +68,11 @@ export async function POST(req: NextRequest) {
         </div>
       `,
     });
+
+    if (sendError) {
+      console.error("Resend error:", sendError);
+      throw new Error(sendError.message);
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
