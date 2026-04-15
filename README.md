@@ -89,3 +89,29 @@ npm run dev
 
 ---
 *Developed for Kemplast Process Solutions*
+
+
+
+
+# ─────────────────────────────────────────────
+# Resend (email delivery) — https://resend.com
+# ─────────────────────────────────────────────
+RESEND_API_KEY=re_ZDDuXXzt_AG3VhzULt7byJo7TsqmJZ1XV
+
+# ─────────────────────────────────────────────
+# Supabase — https://supabase.com/dashboard
+# ─────────────────────────────────────────────
+NEXT_PUBLIC_SUPABASE_URL=https://haznwgcywltiasqcpawp.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhhem53Z2N5d2x0aWFzcWNwYXdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYwMzczNjMsImV4cCI6MjA4MTYxMzM2M30.GiPbfmcOzzmqLjL0cyz_Yl6VIiR9X0EIaxlDH1UN964
+
+# ─────────────────────────────────────────────
+# Supabase Service Role Key (server-side only, never expose to client)
+# Get from: Supabase Dashboard → Settings → API → service_role key
+# ─────────────────────────────────────────────
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhhem53Z2N5d2x0aWFzcWNwYXdwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NjAzNzM2MywiZXhwIjoyMDgxNjEzMzYzfQ.HO-h0uCX6x3UKIL8weDEFAVxlnT7-Y5ToWh7s19rOxI
+
+# ─────────────────────────────────────────────
+# Supabase Personal Access Token (for npm run db:setup only)
+# Get from: https://supabase.com/dashboard/account/tokens → Generate new token
+# ─────────────────────────────────────────────
+SUPABASE_ACCESS_TOKEN=sbp_f1846ca6ae62c740a5b6bb441b1f85de1996e291
