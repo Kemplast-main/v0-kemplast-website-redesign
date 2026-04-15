@@ -26,7 +26,7 @@ const teamMembers = [
     id: 3,
     position: "Director",
     name: "Badri",
-    phone: "-",
+    phone: "9849424374",
     email: "-",
   },
   {
