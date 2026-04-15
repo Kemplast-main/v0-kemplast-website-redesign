@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
 
     await resend.emails.send({
       from: "Kemplast Website <noreply@kemplast.in>",
-      to: ["sales@kemplast.in", "gpejavar@gmail.com"],
+      to: ["sales@kemplast.in", "gpejavar@gmail.com", "chaitanya@kemplast.in"],
       replyTo: email,
       subject: `New Enquiry / Quote Request: ${subject}`,
       html: `
