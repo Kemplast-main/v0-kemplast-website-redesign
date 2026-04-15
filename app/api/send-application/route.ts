@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
 
 export async function POST(req: NextRequest) {
     try {
@@ -18,6 +19,19 @@ export async function POST(req: NextRequest) {
                 content: Buffer.from(resumeBase64, "base64"),
             });
         }
+
+        // Save to database first so we never lose a submission
+        const { error: dbError } = await getSupabaseAdmin()
+            .from("applications")
+            .insert([{
+                name,
+                email,
+                phone,
+                position,
+                message: message || null,
+                resume_file_name: resumeFileName || null,
+            }]);
+        if (dbError) console.error("DB insert failed:", dbError.message);
 
         const resend = new Resend(process.env.RESEND_API_KEY);
 

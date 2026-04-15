@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
 
 export async function POST(req: NextRequest) {
   try {
@@ -7,6 +8,12 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
     const { name, email, phone, company, product, subject, message } = body;
+
+    // Save to database first so we never lose a submission
+    const { error: dbError } = await getSupabaseAdmin()
+      .from("quotes")
+      .insert([{ name, email, phone: body.phone ?? null, company: body.company ?? null, product, subject, message }]);
+    if (dbError) console.error("DB insert failed:", dbError.message);
 
     await resend.emails.send({
       from: "Kemplast Website <noreply@kemplast.in>",

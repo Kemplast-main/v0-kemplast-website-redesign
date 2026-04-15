@@ -6,7 +6,6 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Send } from "lucide-react"
 import { toast } from "sonner"
-import { supabase } from "@/lib/supabase"
 
 export function JoinTeamForm() {
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -75,18 +74,6 @@ export function JoinTeamForm() {
                 const errorData = await response.json()
                 throw new Error(errorData.error || "Failed to submit application")
             }
-
-            // Save to database — best-effort record keeping
-            supabase.from("applications").insert([{
-                name: formData.name,
-                email: formData.email,
-                phone: formData.phone,
-                position: formData.position,
-                message: formData.message,
-                resume_file_name: resumeFileName || null,
-            }]).then(({ error }) => {
-                if (error) console.error("DB save failed (non-critical):", error.message)
-            })
 
             toast.success("Application submitted successfully! Good luck!")
 

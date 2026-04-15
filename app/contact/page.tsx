@@ -11,7 +11,6 @@ import { Phone, Mail, Send, Building2, Globe, Smartphone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { supabase } from "@/lib/supabase"
 import { toast } from "sonner"
 
 const contactInfo = [
@@ -191,11 +190,6 @@ function ContactForm() {
         body: JSON.stringify(payload),
       })
       if (!res.ok) throw new Error("Failed to send email")
-
-      // Save to database — best-effort record keeping
-      supabase.from("quotes").insert([payload]).then(({ error }) => {
-        if (error) console.error("DB save failed (non-critical):", error.message)
-      })
 
       toast.success("Request sent successfully! We will get back to you soon.")
       setFormData({ name: "", email: "", product: [], specificProducts: [], subject: "", message: "" })
