@@ -1,6 +1,19 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
-import { getSupabaseAdmin } from "@/lib/supabase-admin";
+
+// ─── Configuration ────────────────────────────────────────────────────────────
+// Set IS_DOMAIN_VERIFIED to true once kemplast.in is verified in Resend.
+// Go to https://resend.com/domains → Add kemplast.in → Add the DNS records → Verify
+const IS_DOMAIN_VERIFIED = true;
+
+const FROM_EMAIL = IS_DOMAIN_VERIFIED
+  ? "Kemplast Website <noreply@kemplast.in>"
+  : "Kemplast Website <onboarding@resend.dev>";
+
+const TO_EMAILS = IS_DOMAIN_VERIFIED
+  ? ["sales@kemplast.in", "gpejavar@gmail.com", "chaitanya@kemplast.in"]
+  : ["gpejavar@gmail.com"]; // onboarding@resend.dev can only send to account owner
+// ──────────────────────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,15 +26,31 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { name, email, phone, company, product, subject, message } = body;
 
-    // Save to database first so we never lose a submission
-    const { error: dbError } = await getSupabaseAdmin()
-      .from("quotes")
-      .insert([{ name, email, phone: body.phone ?? null, company: body.company ?? null, product, subject, message }]);
-    if (dbError) console.error("DB insert failed:", dbError.message);
+    // Basic validation
+    if (!name || !email || !subject || !message) {
+      return NextResponse.json(
+        { error: "Name, email, subject, and message are required." },
+        { status: 400 },
+      );
+    }
 
+    // Try to save to database (best-effort — never block email sending)
+    try {
+      const { getSupabaseAdmin } = await import("@/lib/supabase-admin");
+      const supabaseAdmin = getSupabaseAdmin();
+      const { error: dbError } = await supabaseAdmin
+        .from("quotes")
+        .insert([{ name, email, phone: phone ?? null, company: company ?? null, product, subject, message }]);
+      if (dbError) console.error("DB insert failed (non-blocking):", dbError.message);
+    } catch (dbErr) {
+      // Log but don't throw — DB is secondary to email delivery
+      console.error("Supabase unavailable (non-blocking):", dbErr instanceof Error ? dbErr.message : dbErr);
+    }
+
+    // Send the email — this is the primary action
     const { error: sendError } = await resend.emails.send({
-      from: "Kemplast Website <noreply@kemplast.in>",
-      to: ["sales@kemplast.in", "gpejavar@gmail.com", "chaitanya@kemplast.in"],
+      from: FROM_EMAIL,
+      to: TO_EMAILS,
       replyTo: email,
       subject: `New Enquiry / Quote Request: ${subject}`,
       html: `
@@ -76,6 +105,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
+    console.error("Enquiry API error:", error);
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Unknown error" },
       { status: 500 },

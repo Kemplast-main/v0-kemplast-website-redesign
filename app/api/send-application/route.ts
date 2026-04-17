@@ -1,11 +1,32 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
-import { getSupabaseAdmin } from "@/lib/supabase-admin";
+
+// ─── Configuration ────────────────────────────────────────────────────────────
+// Set IS_DOMAIN_VERIFIED to true once kemplast.in is verified in Resend.
+// Go to https://resend.com/domains → Add kemplast.in → Add the DNS records → Verify
+const IS_DOMAIN_VERIFIED = true;
+
+const FROM_EMAIL = IS_DOMAIN_VERIFIED
+  ? "Kemplast Careers <noreply@kemplast.in>"
+  : "Kemplast Careers <onboarding@resend.dev>";
+
+const TO_EMAILS = IS_DOMAIN_VERIFIED
+  ? ["sales@kemplast.in", "gpejavar@gmail.com", "chaitanya@kemplast.in"]
+  : ["gpejavar@gmail.com"]; // onboarding@resend.dev can only send to account owner
+// ──────────────────────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
         const { name, email, phone, position, message, resumeBase64, resumeFileName } = body;
+
+        // Basic validation
+        if (!name || !email || !phone || !position) {
+            return NextResponse.json(
+                { error: "Name, email, phone, and position are required." },
+                { status: 400 },
+            );
+        }
 
         if (!process.env.RESEND_API_KEY) {
             throw new Error("Email service is not configured.");
@@ -20,24 +41,32 @@ export async function POST(req: NextRequest) {
             });
         }
 
-        // Save to database first so we never lose a submission
-        const { error: dbError } = await getSupabaseAdmin()
-            .from("applications")
-            .insert([{
-                name,
-                email,
-                phone,
-                position,
-                message: message || null,
-                resume_file_name: resumeFileName || null,
-            }]);
-        if (dbError) console.error("DB insert failed:", dbError.message);
+        // Try to save to database (best-effort — never block email sending)
+        try {
+            const { getSupabaseAdmin } = await import("@/lib/supabase-admin");
+            const supabaseAdmin = getSupabaseAdmin();
+            const { error: dbError } = await supabaseAdmin
+                .from("applications")
+                .insert([{
+                    name,
+                    email,
+                    phone,
+                    position,
+                    message: message || null,
+                    resume_file_name: resumeFileName || null,
+                }]);
+            if (dbError) console.error("DB insert failed (non-blocking):", dbError.message);
+        } catch (dbErr) {
+            // Log but don't throw — DB is secondary to email delivery
+            console.error("Supabase unavailable (non-blocking):", dbErr instanceof Error ? dbErr.message : dbErr);
+        }
 
+        // Send email — this is the primary action
         const resend = new Resend(process.env.RESEND_API_KEY);
 
         const { error: sendError } = await resend.emails.send({
-            from: "Kemplast Careers <noreply@kemplast.in>",
-            to: ["sales@kemplast.in", "gpejavar@gmail.com", "chaitanya@kemplast.in"],
+            from: FROM_EMAIL,
+            to: TO_EMAILS,
             replyTo: email,
             subject: `New Job Application: ${name} - ${position}`,
             attachments,
