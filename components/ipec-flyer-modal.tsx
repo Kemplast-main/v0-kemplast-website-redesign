@@ -9,11 +9,8 @@ export function IpecFlyerModal() {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    // Show modal after a short delay
-    const timer = setTimeout(() => {
-      setIsOpen(true)
-    }, 1500)
-    return () => clearTimeout(timer)
+    // Show modal immediately after mount
+    setIsOpen(true)
   }, [])
 
   return (
