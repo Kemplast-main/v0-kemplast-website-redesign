@@ -6,6 +6,7 @@ import { ProductExplorer } from "@/components/product-explorer"
 import { ServicesSection } from "@/components/services-section"
 import { PartnersSection } from "@/components/partners-section"
 import { Footer } from "@/components/footer"
+import { IpecFlyerModal } from "@/components/ipec-flyer-modal"
 
 export const metadata: Metadata = {
   title: "Kemplast Process Solutions | #1 Authorized Dealer for Siemens, WIKA, RKS, Spitmaan, Ventil & Scientific Devices in India",
@@ -106,7 +107,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
-      <main className="min-h-screen bg-background">
+      <main className="min-h-screen bg-background relative overflow-x-hidden">
         <Navbar />
         <Hero3D />
         <AboutSection />
@@ -114,8 +115,8 @@ export default function HomePage() {
         <ServicesSection />
         <PartnersSection />
         <Footer />
+        <IpecFlyerModal />
       </main>
     </>
   )
 }
-
