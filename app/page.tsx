@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { Hero3D } from "@/components/hero-3d"
 import { AboutSection } from "@/components/about-section"
