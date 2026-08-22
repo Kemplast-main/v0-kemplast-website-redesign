@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { Hero3D } from "@/components/hero-3d"
 import { AboutSection } from "@/components/about-section"
@@ -6,7 +7,6 @@ import { ProductExplorer } from "@/components/product-explorer"
 import { ServicesSection } from "@/components/services-section"
 import { PartnersSection } from "@/components/partners-section"
 import { Footer } from "@/components/footer"
-import { IpecFlyerModal } from "@/components/ipec-flyer-modal"
 
 export const metadata: Metadata = {
   title: "Kemplast Process Solutions | #1 Authorized Dealer for Siemens, WIKA, RKS, Spitmaan, Ventil & Scientific Devices in India",
@@ -115,7 +115,6 @@ export default function HomePage() {
         <ServicesSection />
         <PartnersSection />
         <Footer />
-        <IpecFlyerModal />
       </main>
     </>
   )
