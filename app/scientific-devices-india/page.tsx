@@ -4,7 +4,7 @@ import { BrandPageLayout } from "@/components/brand-page-layout"
 export const metadata: Metadata = {
   title: "Scientific Devices Authorized Distributor India | Precision Balances, Calibration | Kemplast",
   description:
-    "Kemplast is India's top Scientific Devices authorized distributor & dealer. Buy genuine precision balances, calibration equipment, material testing instruments, analytical instruments & lab equipment. Serving Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune & pan-India. Call +91-40-27711000.",
+    "Kemplast is India's top Scientific Devices authorized distributor & dealer. Buy genuine precision balances, calibration equipment, material testing instruments, analytical instruments & lab equipment. Serving Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune & pan-India. Call +91-40-27711000 / +91 89777 54033.",
   keywords: [
     "Scientific Devices authorized distributor India",
     "Scientific Devices authorized dealer India",
@@ -90,7 +90,7 @@ const faqSchema = {
     {
       "@type": "Question",
       name: "Where can I buy Scientific Devices precision instruments in India?",
-      acceptedAnswer: { "@type": "Answer", text: "Buy genuine Scientific Devices instruments from Kemplast Process Solutions — an authorized dealer in India. We supply to Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune and all major cities. Contact: +91-40-27711000 or sales@kemplast.in." },
+      acceptedAnswer: { "@type": "Answer", text: "Buy genuine Scientific Devices instruments from Kemplast Process Solutions — an authorized dealer in India. We supply to Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune and all major cities. Contact: +91-40-27711000 / +91 89777 54033 or sales@kemplast.in." },
     },
   ],
 }

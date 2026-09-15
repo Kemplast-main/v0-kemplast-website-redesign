@@ -4,7 +4,7 @@ import { BrandPageLayout } from "@/components/brand-page-layout"
 export const metadata: Metadata = {
   title: "Spitmaan Authorized Distributor India | Gland Packing, PTFE, Graphite Seals | Kemplast",
   description:
-    "Kemplast is India's top Spitmaan authorized distributor & dealer. Buy genuine Spitmaan PTFE gland packings, graphite packings, Aramid packings, non-asbestos gasket sheets & ceramic fibre products. Supplying Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune & pan-India. Call +91-40-27711000.",
+    "Kemplast is India's top Spitmaan authorized distributor & dealer. Buy genuine Spitmaan PTFE gland packings, graphite packings, Aramid packings, non-asbestos gasket sheets & ceramic fibre products. Supplying Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune & pan-India. Call +91-40-27711000 / +91 89777 54033.",
   keywords: [
     "Spitmaan authorized distributor India",
     "Spitmaan authorized dealer India",
@@ -92,7 +92,7 @@ const faqSchema = {
     {
       "@type": "Question",
       name: "Where can I buy Spitmaan gland packing in India?",
-      acceptedAnswer: { "@type": "Answer", text: "You can buy genuine Spitmaan gland packings from Kemplast Process Solutions — an authorized Spitmaan dealer in India. We supply to Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune and all major cities. Contact: +91-40-27711000 or sales@kemplast.in." },
+      acceptedAnswer: { "@type": "Answer", text: "You can buy genuine Spitmaan gland packings from Kemplast Process Solutions — an authorized Spitmaan dealer in India. We supply to Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune and all major cities. Contact: +91-40-27711000 / +91 89777 54033 or sales@kemplast.in." },
     },
   ],
 }

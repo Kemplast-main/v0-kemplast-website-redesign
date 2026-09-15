@@ -4,7 +4,7 @@ import { BrandPageLayout } from "@/components/brand-page-layout"
 export const metadata: Metadata = {
   title: "Siemens Authorized Distributor & Dealer in India | SITRANS, PLC, Instrumentation | Kemplast",
   description:
-    "Kemplast is India's top Siemens authorized distributor & dealer. Buy genuine Siemens SITRANS pressure transmitters, temperature sensors, flow meters, level instruments, SIPART positioners & PLCs. Serving Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune & pan-India. Call +91-40-27711000.",
+    "Kemplast is India's top Siemens authorized distributor & dealer. Buy genuine Siemens SITRANS pressure transmitters, temperature sensors, flow meters, level instruments, SIPART positioners & PLCs. Serving Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune & pan-India. Call +91-40-27711000 / +91 89777 54033.",
   keywords: [
     "Siemens authorized dealer India",
     "Siemens authorized distributor India",
@@ -100,7 +100,7 @@ const faqSchema = {
     {
       "@type": "Question",
       name: "How do I buy Siemens SITRANS instruments from Kemplast?",
-      acceptedAnswer: { "@type": "Answer", text: "You can contact Kemplast Process Solutions at +91-40-27711000 or email sales@kemplast.in to get a quote for genuine Siemens SITRANS instruments with delivery across India." },
+      acceptedAnswer: { "@type": "Answer", text: "You can contact Kemplast Process Solutions at +91-40-27711000 / +91 89777 54033 or email sales@kemplast.in to get a quote for genuine Siemens SITRANS instruments with delivery across India." },
     },
   ],
 }

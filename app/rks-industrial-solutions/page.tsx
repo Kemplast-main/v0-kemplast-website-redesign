@@ -4,7 +4,7 @@ import { BrandPageLayout } from "@/components/brand-page-layout"
 export const metadata: Metadata = {
   title: "RKS Authorized Distributor India | Industrial Valves, Fittings & Flanges | Kemplast",
   description:
-    "Kemplast is India's top RKS authorized distributor & dealer. Buy genuine RKS industrial valves (gate, globe, ball, check), pipe fittings, flanges, strainers & steam traps. Supplying Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune & pan-India. Call +91-40-27711000.",
+    "Kemplast is India's top RKS authorized distributor & dealer. Buy genuine RKS industrial valves (gate, globe, ball, check), pipe fittings, flanges, strainers & steam traps. Supplying Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune & pan-India. Call +91-40-27711000 / +91 89777 54033.",
   keywords: [
     "RKS authorized distributor India",
     "RKS authorized dealer India",
@@ -92,7 +92,7 @@ const faqSchema = {
     {
       "@type": "Question",
       name: "Where can I buy RKS industrial valves in India?",
-      acceptedAnswer: { "@type": "Answer", text: "You can buy genuine RKS industrial valves from Kemplast Process Solutions — an authorized RKS dealer in India. We supply to all major cities including Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune. Contact us at +91-40-27711000 or sales@kemplast.in." },
+      acceptedAnswer: { "@type": "Answer", text: "You can buy genuine RKS industrial valves from Kemplast Process Solutions — an authorized RKS dealer in India. We supply to all major cities including Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune. Contact us at +91-40-27711000 / +91 89777 54033 or sales@kemplast.in." },
     },
   ],
 }

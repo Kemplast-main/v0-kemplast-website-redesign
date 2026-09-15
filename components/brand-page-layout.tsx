@@ -47,7 +47,7 @@ export function BrandPageLayout({
         "postalCode": "500003",
         "addressCountry": "IN"
       },
-      "telephone": "+91-40-27711000",
+      "telephone": ["+91-40-27711000", "+91-89777-54033"],
       "areaServed": "India",
       "brand": {
         "@type": "Brand",

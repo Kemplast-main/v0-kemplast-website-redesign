@@ -192,6 +192,13 @@ const organizationSchema = {
       contactType: "customer support",
       availableLanguage: ["English", "Hindi", "Telugu"],
       areaServed: "IN",
+    },
+    {
+      "@type": "ContactPoint",
+      telephone: "+91-89777-54033",
+      contactType: "sales",
+      availableLanguage: ["English", "Hindi", "Telugu"],
+      areaServed: "IN",
     }
   ],
   sameAs: [

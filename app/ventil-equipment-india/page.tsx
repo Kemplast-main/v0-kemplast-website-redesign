@@ -4,7 +4,7 @@ import { BrandPageLayout } from "@/components/brand-page-layout"
 export const metadata: Metadata = {
   title: "Ventil Authorized Distributor India | Valve Testing Equipment & Test Benches | Kemplast",
   description:
-    "Kemplast is India's top Ventil authorized distributor & dealer. Buy genuine Ventil valve test benches, safety valve test units, control valve test systems, lapping machines & portable test equipment. Serving Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune & pan-India. Call +91-40-27711000.",
+    "Kemplast is India's top Ventil authorized distributor & dealer. Buy genuine Ventil valve test benches, safety valve test units, control valve test systems, lapping machines & portable test equipment. Serving Hyderabad, Mumbai, Bangalore, Chennai, Delhi, Pune & pan-India. Call +91-40-27711000 / +91 89777 54033.",
   keywords: [
     "Ventil authorized distributor India",
     "Ventil authorized dealer India",
@@ -90,7 +90,7 @@ const faqSchema = {
     {
       "@type": "Question",
       name: "Where can I buy Ventil valve testing equipment in India?",
-      acceptedAnswer: { "@type": "Answer", text: "Buy genuine Ventil valve testing equipment from Kemplast Process Solutions — India's authorized Ventil dealer. We supply to all major industrial cities. Contact: +91-40-27711000 or sales@kemplast.in." },
+      acceptedAnswer: { "@type": "Answer", text: "Buy genuine Ventil valve testing equipment from Kemplast Process Solutions — India's authorized Ventil dealer. We supply to all major industrial cities. Contact: +91-40-27711000 / +91 89777 54033 or sales@kemplast.in." },
     },
   ],
 }

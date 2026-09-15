@@ -43,7 +43,7 @@ const contactInfo = [
   {
     icon: Smartphone,
     title: "Cell",
-    details: ["+91 76740 12423", "+91 98494 24374"],
+    details: ["+91 76740 12423", "+91 98494 24374", "+91 89777 54033"],
   },
   {
     icon: Mail,

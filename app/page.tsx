@@ -21,7 +21,7 @@ const localBusinessSchema = {
   name: "Kemplast Process Solutions",
   image: "https://kemplast.in/images/kemplast-logo-updated.png",
   url: "https://kemplast.in",
-  telephone: "+91-40-27711000",
+  telephone: ["+91-40-27711000", "+91-89777-54033"],
   email: "sales@kemplast.in",
   priceRange: "$$",
   description:

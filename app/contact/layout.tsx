@@ -4,7 +4,7 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "Contact Kemplast Process Solutions | Authorized Dealer India | Hyderabad & Bangalore",
   description:
-    "Contact Kemplast Process Solutions — India's authorized dealer for Siemens, WIKA, RKS, Spitmaan, Ventil & Scientific Devices. Offices in Secunderabad (Hyderabad) & Bangalore. Call: 040-27711000 | Email: sales@kemplast.in | Get a quote for industrial instruments across India.",
+    "Contact Kemplast Process Solutions — India's authorized dealer for Siemens, WIKA, RKS, Spitmaan, Ventil & Scientific Devices. Offices in Secunderabad (Hyderabad) & Bangalore. Call: 040-27711000 | +91 89777 54033 | Email: sales@kemplast.in | Get a quote for industrial instruments across India.",
   keywords: [
     "contact Kemplast",
     "Kemplast address Hyderabad",
@@ -66,7 +66,7 @@ const contactPageSchema = {
         addressCountry: "IN",
       },
     ],
-    telephone: ["+91-40-27711000", "+91-40-27714090"],
+    telephone: ["+91-40-27711000", "+91-40-27714090", "+91-89777-54033"],
     email: "sales@kemplast.in",
   },
 }

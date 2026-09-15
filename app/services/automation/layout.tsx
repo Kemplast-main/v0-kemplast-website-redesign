@@ -4,7 +4,7 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "Industrial Automation Services India | PLC, DCS, SCADA, IoT | Kemplast",
   description:
-    "Kemplast delivers end-to-end industrial automation solutions across India — PLC/DCS programming, SCADA design, Industrial IoT, process optimization and turnkey automation projects. Serving Hyderabad, Mumbai, Bangalore, Chennai, Pune & pan-India. Contact: +91-40-27711000.",
+    "Kemplast delivers end-to-end industrial automation solutions across India — PLC/DCS programming, SCADA design, Industrial IoT, process optimization and turnkey automation projects. Serving Hyderabad, Mumbai, Bangalore, Chennai, Pune & pan-India. Contact: +91-40-27711000 / +91 89777 54033.",
   keywords: [
     "industrial automation company India",
     "PLC programming services India",
