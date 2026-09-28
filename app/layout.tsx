@@ -1,12 +1,12 @@
 import type React from "react"
 import type { Metadata } from "next"
-import Script from "next/script"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
 
 import { GlobalBackground } from "@/components/global-background"
 import { ScrollProgress } from "@/components/scroll-progress"
 import { Toaster } from "sonner"
+import { WhatsAppButton } from "@/components/whatsapp-button"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -345,9 +345,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <Toaster />
         </ThemeProvider>
         <Analytics />
-        {/* Elfsight WhatsApp Chat Widget */}
-        <Script src="https://elfsightcdn.com/platform.js" strategy="lazyOnload" />
-        <div className="elfsight-app-775be6a2-c365-4541-a5c1-b0dfcbdc4882" data-elfsight-app-lazy></div>
+        {/* WhatsApp Chat Button */}
+        <WhatsAppButton />
       </body>
     </html>
   )
