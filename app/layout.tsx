@@ -110,6 +110,7 @@ export const metadata: Metadata = {
     google: [
       "xWDb8MihZE6hT8QVfHxE1dT3EYC8COtG5RMeADbEh4s",
       "n-3WRDK84BNzqYujyvf6pDqBkdlGb-G-ONMr69264Ek",
+      "2mcGHWpy2fydil6KOSYbPIVvyYqBIIOtxYCVkLPou0k",
     ],
   },
   icons: {
