@@ -42,7 +42,7 @@ export function PartnersSection() {
               {[...partners, ...partners, ...partners, ...partners].map((partner, index) => (
                 <div
                   key={`${partner.name}-${index}`}
-                  className="flex-shrink-0 w-64 h-32 bg-card rounded-xl border border-border flex items-center justify-center p-6 hover:border-primary/30 transition-colors"
+                  className="flex-shrink-0 w-64 h-32 bg-card dark:bg-white/90 rounded-xl border border-border dark:border-white/10 flex items-center justify-center p-6 hover:border-primary/30 transition-colors"
                 >
                   <Image
                     src={partner.src}

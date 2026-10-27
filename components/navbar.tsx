@@ -86,7 +86,7 @@ export function Navbar() {
                               href={brand.href}
                               className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${pathname === brand.href ? "bg-primary/10 text-primary" : "text-foreground/80 hover:bg-muted hover:text-primary"}`}
                             >
-                              <div className="w-8 h-8 rounded-md bg-white/50 flex items-center justify-center p-1 overflow-hidden shrink-0">
+                              <div className="w-8 h-8 rounded-md bg-white/50 dark:bg-white/90 flex items-center justify-center p-1 overflow-hidden shrink-0">
                                 <Image 
                                   src={brand.logo} 
                                   alt={brand.name} 
@@ -173,7 +173,7 @@ export function Navbar() {
                               onClick={() => setIsOpen(false)}
                               className={`flex items-center gap-3 py-2 text-sm transition-colors ${pathname === brand.href ? "text-primary font-medium" : "text-foreground hover:text-primary"}`}
                             >
-                              <div className="w-6 h-6 rounded-md bg-white/50 flex items-center justify-center p-0.5 overflow-hidden shrink-0">
+                              <div className="w-6 h-6 rounded-md bg-white/50 dark:bg-white/90 flex items-center justify-center p-0.5 overflow-hidden shrink-0">
                                 <Image 
                                   src={brand.logo} 
                                   alt={brand.name} 

@@ -31,7 +31,7 @@ export function IpecFlyerModal() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="bg-white rounded-xl shadow-2xl pointer-events-auto relative overflow-hidden flex flex-col"
+              className="bg-card rounded-xl shadow-2xl pointer-events-auto relative overflow-hidden flex flex-col"
               style={{
                 width: 'min(90vw, 85vh, 800px)',
                 height: 'min(90vw, 85vh, 800px)'
@@ -39,12 +39,12 @@ export function IpecFlyerModal() {
             >
               <button
                 onClick={() => setIsOpen(false)}
-                className="absolute top-4 right-4 p-2 bg-white/80 backdrop-blur rounded-full text-gray-500 hover:text-gray-900 transition-colors z-20 shadow-sm border border-gray-100"
+                className="absolute top-4 right-4 p-2 bg-background/80 backdrop-blur rounded-full text-muted-foreground hover:text-foreground transition-colors z-20 shadow-sm border border-border"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              <div className="relative w-full h-full flex items-center justify-center bg-gray-50">
+              <div className="relative w-full h-full flex items-center justify-center bg-muted">
                 <Image
                   src="/images/Exhibition image.jpeg"
                   alt="IPEC 2026 Exhibition Poster"
